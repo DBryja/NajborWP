@@ -1,0 +1,31 @@
+.page-prace{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $black;
+  z-index: -1;
+  background-image: url('../images/menu-bg-sm.png');
+  @include breakpoint(md){
+    background-image: url('../images/menu-bg-md.png');
+  }
+  @include breakpoint(xl){
+    background-image: url('../images/menu-bg-lg.png');
+  }
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &__item{
+    position: relative;
+    z-index: 1;
+    &:hover{
+      z-index: $z-item-overlay;
+      color: $red;
+    }
+  }
+}

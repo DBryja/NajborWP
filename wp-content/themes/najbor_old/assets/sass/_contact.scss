@@ -1,0 +1,139 @@
+$halfBlack: transparentize($black, 0.5);
+
+.contact{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: clamp(50vh, 700px, 100vh);
+  width: 100%;
+  //max-width: 1400px;
+  margin: 0 auto;
+  gap: 3rem;
+
+  @include breakpoint(lg){
+    flex-direction: row;
+  }
+
+  &__decoration{
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/hotline.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  justify-content: space-between;
+  padding: 0 1rem;
+  @include breakpoint(lg){
+    padding-right: 3rem;
+  }
+  row-gap: 1.5rem;
+}
+.form-field{
+  position: relative;
+  width: 100%;
+
+  &:has(.form-field__input.filled), &:has(.form-field__input:focus){
+    .form-field__label{
+      transform: translate(-8px, -1rem) scale(0.8);
+    }
+  }
+  &__label{
+    position: absolute;
+    display: block;
+    left: 4px;
+    top: 1rem;
+    color: $halfBlack;
+    transition: all 0.2s ease-in-out;
+  }
+  &__input{
+    width: 100%;
+    border-bottom: 1px solid $halfBlack;
+    padding: 4px;
+    &:focus{
+      outline: none;
+    }
+  }
+  &__submit{
+    background: none;
+    border:none;
+    width: 100px;
+    height: 50px;
+    padding: 0;
+    align-self: end;
+    cursor: pointer;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    position: relative;
+    --arrow-color: rgba(0,0,0,1);
+
+    &[disabled]{
+       --arrow-color: rgba(0,0,0,0.3);
+    }
+
+    .arrow {
+      display: block;
+      margin: 30px auto;
+      width: 15px;
+      height: 15px;
+      border-top: 2px solid var(--arrow-color);
+      border-left: 2px solid var(--arrow-color);
+      transform: rotate(135deg);
+      position: absolute;
+      right: 32px;
+      transition: all 0.3s;
+    }
+
+    .arrow::after {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 2px;
+      height: 70px;
+      background-color: var(--arrow-color);
+      transform: rotate(-45deg) translate(24px, 8px);
+      transition: transform 0.3s;
+    }
+
+    &:not([disabled]):hover {
+      .arrow::after{
+        transform: rotate(-45deg) translate(24px, 16px) scaleY(1.2);
+      }
+      .arrow{
+        right: 2px;
+      }
+    }
+
+  }
+  &__row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    .links{
+        display: flex;
+        gap: 1rem;
+      a{
+        transition: color 0.2s ease;
+      }
+      &:has(a:hover){
+        a:not(:hover){
+          opacity: 0.6;
+        }
+      }
+
+      i{
+        font-size: 2rem;
+      }
+    }
+  }
+}

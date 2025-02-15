@@ -1,0 +1,65 @@
+.navigation{
+  margin-top: 3rem;
+}
+.pagenavi {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+
+  a, span.current{
+    font-size: 1.5rem;
+    padding: 8px;
+    text-align: center;
+
+    @include breakpoint(md){
+        font-size: 1.2rem;
+    }
+  }
+}
+.pagenavi a {
+  display: block;
+  color: $black;
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $black;
+    transform: scaleX(0);
+    transition: 0.15s transform ease-in-out;
+    transform-origin: center;
+  }
+}
+.pagenavi a:hover {
+  &:after{
+    transform: scaleX(1);
+  }
+}
+.pagenavi span.pages {
+}
+.pagenavi span.current {
+  font-weight:bold;
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $black;
+  }
+}
+.pagenavi span.expand {
+}
+.pagenavi .first, .pagenavi .last {
+}
+.pagenavi .single_page {
+}

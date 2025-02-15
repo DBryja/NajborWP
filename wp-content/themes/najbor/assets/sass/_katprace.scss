@@ -1,0 +1,48 @@
+.prace-archive{
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  &__row{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10%, 1fr));
+  }
+
+  &__item{
+    overflow: hidden;
+    &[data-shape="thin"] {
+      grid-column: span 3;
+      grid-row: span 7;
+    }
+
+    &[data-shape="square"] {
+      grid-column: span 5;
+      grid-row: span 5;
+    }
+
+    &[data-shape="wide"] {
+      grid-column: span 7;
+      grid-row: span 4;
+    }
+
+    &[data-shape="very-wide"] {
+      grid-column: span 10;
+      grid-row: span 3;
+    }
+    &:hover{
+      img{
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+}

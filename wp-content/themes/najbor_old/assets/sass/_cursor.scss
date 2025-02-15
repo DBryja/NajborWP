@@ -1,0 +1,120 @@
+@import "mixins";
+.cursor{
+  width: 2rem;
+  height: auto;
+  aspect-ratio: 1;
+  position: fixed;
+  z-index: $z-cursor;
+  pointer-events: none;
+  border: 1px solid $red;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+  will-change: width, height, background, opacity;
+  top: 0!important;
+  left: 0!important;
+  transform-origin: center;
+  display: none;
+  background-color: transparent;
+  @media (pointer: fine){
+    display: block;
+  }
+
+  &__image{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: none;
+    background-position: center;
+    width: 0;
+    height: 18rem;
+    filter: brightness(2);
+    z-index: $z-cursor-image;
+    transform: skewX(0) skew(0);
+    will-change: skewX, skew, filter, width, background-image;
+  }
+  &__arrow{
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    opacity: 0;
+    z-index: $z-cursor-icon;
+    transition: transform 0.3s ease 0s, opacity 0.2s ease 0s, scale 0.2s ease 0s;
+    svg{
+        width: 100%;
+        height: 100%;
+    }
+  }
+
+  &.loading{
+    .cursor__arrow{
+      opacity: 1;
+      animation: rotate-loader infinite 1s ease-in-out;
+    }
+  }
+}
+@keyframes rotate-loader {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.95);
+  }
+  to{
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.05);
+  }
+}
+
+
+body:has(div.menu.active:hover){
+  cursor: pointer;
+  .cursor{
+    &__arrow{
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+}
+
+
+.cursor--click:hover, .cursor--img:hover, a{
+  cursor: pointer;
+}
+body:has(.cursor--click:hover, a:hover){
+  .cursor{
+    width: 3rem;
+    &__arrow{
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(0deg) !important;
+    }
+  }
+}
+
+body:has(.cursor--img:hover){
+  .cursor{
+    &__arrow{
+      opacity:0 !important;
+    }
+  }
+}
+
+body:has(.menu__item.cursor--click:nth-child(even):hover){
+    .cursor{
+        &__arrow{
+        transform: translate(-50%, -50%) rotate(180deg) !important;
+        }
+    }
+}
+body:has(.categories-list h4:nth-child(even):hover){
+  .cursor{
+    &__arrow{
+      transform: translate(-50%, -50%) rotate(180deg) !important;
+    }
+  }
+}

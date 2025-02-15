@@ -1,0 +1,86 @@
+@import "reset";
+@import "variables";
+@import "colors";
+@import "typography";
+
+@import "header";
+@import "menu";
+@import "single";
+@import "archive-prace";
+@import "katprace";
+@import "transition_box";
+@import "404";
+@import "contact";
+@import "footer";
+@import "language-selector";
+@import "pagination";
+@import "alert";
+
+@import "cursor";
+html{
+    overflow-x: hidden !important;
+}
+body{
+    background-color: $white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    overflow-x:hidden !important;
+}
+body:has(.menu.active){
+    overflow: hidden!important;
+}
+
+*{
+    -webkit-tap-highlight-color: transparent;
+}
+
+main{
+    box-sizing: border-box;
+    margin-top: 10rem;
+    display: grid;
+    width: 100dvw;
+    padding: 1rem 1rem;
+    @include breakpoint(md){
+        padding: 1rem 2rem;
+    }
+    margin-bottom: 3rem;
+    //min-height: calc(100dvh - 10rem);
+}
+
+.copyrights{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: $white;
+    a{
+        text-decoration: underline;
+    }
+}
+.main-wrapper > .copyrights {
+    color: $black;
+    z-index: 1;
+}
+
+*:has([data-forSale]){
+    position: relative;
+}
+[data-forSale]::after{
+    content: attr(data-forSale);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $red;
+    color: $white;
+    padding: 0.5rem;
+    @include playfair-display;
+}
