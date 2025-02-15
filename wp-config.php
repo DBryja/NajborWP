@@ -1,18 +1,19 @@
 <?php
-if (file_exists(__DIR__ . '/.env')) {
-    $env = parse_ini_file(__DIR__ . '/.env');
-    foreach ($env as $key => $value) {
-        putenv("$key=$value");
+$envPath = dirname(__DIR__) . '/.env';
+$envContent = file_get_contents($envPath);
+$lines = explode("\n", trim($envContent)); // Rozdzielanie po nowej linii
+$env = [];
+foreach ($lines as $line) {
+    if (strpos($line, '=') !== false) {
+        list($key, $value) = explode('=', $line, 2);
+        $env[trim($key)] = trim($value, "\" \t\n\r\0\x0B");
     }
-
-    define('DB_NAME', $env['DB_NAME']);
-    define('DB_USER', $env['DB_USER']);
-    define('DB_PASSWORD', $env['DB_PASSWORD']);
-    define('DB_HOST', $env['DB_HOST']);
-} else {
-    die('Brak pliku .env');
 }
-// ** Database settings - You can get this info from your web host ** //
+
+define('DB_NAME', $env['DB_NAME']);
+define('DB_USER', $env['DB_USER']);
+define('DB_PASSWORD', $env['DB_PASSWORD']);
+define('DB_HOST', $env['DB_HOST']);
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
@@ -30,15 +31,14 @@ define('WP_SITEURL','https://najbor.pl/');
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         '5Ov0r#dpAsRq#:V:rAJB+~:5H`88! rp,J(#):/|mJ:==-krq^Q%d8Zwx_aC%Jbt' );
-define( 'SECURE_AUTH_KEY',  '~7dJkg)]9:,JybORdG`iu&:>sYo9Rnzk)+qB qNo4%>ZrWZ*c4)=FB~{lO27ul__' );
-define( 'LOGGED_IN_KEY',    'etfb?uv,>[^QT_r$~Ua:[m6Grg!/z8P.HRQ/>N?mE`g f4z:G3>)f@6MrlnA,mBd' );
-define( 'NONCE_KEY',        'xUkJmcg{f!D8CTI(H(jPyJOwIeXA0Ps^%u:g6o:|Y{urdb3.%>3>Iv4b[/*d6V(4' );
-define( 'AUTH_SALT',        'UWSHLgrLe+2_uwf{-_8!&zaUWX>^6=F;Fx/nCSibtV<ONNb=.g~{dGyq1rZa`mL*' );
-define( 'SECURE_AUTH_SALT', 'i}~H~311RCF]0F3Q2hjdnZY[p<Ek?)yD+L#*yEO8,g+ZOw8brJ-`=3sC~4fM(*Tn' );
-define( 'LOGGED_IN_SALT',   '{(a|P`<gK, jRHw|=EW)E1B&`idfVLY/4[Gs4Z&?SB+NPK0hZWynL2-|Y4[hEd.w' );
-define( 'NONCE_SALT',       ';~PmPUH1&u#U(jH*O$^8f_26%Agc6<dO8gU7^&Z%E>WxG0QA?OnWj#8neKlR3=~D' );
-
+define('AUTH_KEY', $env['AUTH_KEY']);
+define('SECURE_AUTH_KEY', $env['SECURE_AUTH_KEY']);
+define('LOGGED_IN_KEY', $env['LOGGED_IN_KEY']);
+define('NONCE_KEY', $env['NONCE_KEY']);
+define('AUTH_SALT', $env['AUTH_SALT']);
+define('SECURE_AUTH_SALT', $env['SECURE_AUTH_SALT']);
+define('LOGGED_IN_SALT', $env['LOGGED_IN_SALT']);
+define('NONCE_SALT', $env['NONCE_SALT']);
 /**#@-*/
 
 /**
