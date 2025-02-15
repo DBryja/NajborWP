@@ -37,14 +37,42 @@ function custom_sort_posts_by_priority($query) {
         return;
     }
 
-    $query->set('meta_key', 'priorytet');
-    $query->set('orderby', [
-        'meta_value_num' => 'DESC',
+    $meta_query = [
+        'relation' => 'OR',
+        // Grupa 1: Posty z wysokim priorytetem (80-100)
+        'high_priority' => [
+            'key' => 'priorytet',
+            'value' => array(80, 100),
+            'type' => 'NUMERIC',
+            'compare' => 'BETWEEN'
+        ],
+        // Grupa 2: Posty na sprzedaż
+        'for_sale' => [
+            'key' => 'na_sprzedaz',
+            'value' => '1',
+            'compare' => '='
+        ],
+        // Grupa 3: Wszystkie pozostałe posty z priorytetem
+        'normal_priority' => [
+            'key' => 'priorytet',
+            'compare' => 'EXISTS',
+            'type' => 'NUMERIC'
+        ]
+    ];
+
+    $query->set('meta_query', $meta_query);
+
+    $orderby = [
+        'high_priority' => 'DESC',
+        'for_sale' => 'DESC',
+        'priorytet' => 'DESC',
         'date' => 'DESC'
-    ]);
-    $query->set('order', 'DESC');
+    ];
+
+    $query->set('orderby', $orderby);
 }
 add_action('pre_get_posts', 'custom_sort_posts_by_priority');
+
 
 function ensure_default_priority($meta_value, $post_id, $meta_key, $single) {
     if ($meta_key === 'priorytet' && empty($meta_value)) {
