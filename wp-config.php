@@ -1,30 +1,18 @@
 <?php
+if (file_exists(__DIR__ . '/.env')) {
+    $env = parse_ini_file(__DIR__ . '/.env');
+    foreach ($env as $key => $value) {
+        putenv("$key=$value");
+    }
 
-
-/**
- * The base configuration for WordPress
- *
- * The wp-config.php creation script uses this file during the installation.
- * You don't have to use the website, you can copy this file to "wp-config.php"
- * and fill in the values.
- *
- * This file contains the following configurations:
- *
- * * Database settings
- * * Secret keys
- * * Database table prefix
- * * ABSPATH
- *
- * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/
- *
- * @package WordPress
- */
-
+    define('DB_NAME', $env['DB_NAME']);
+    define('DB_USER', $env['DB_USER']);
+    define('DB_PASSWORD', $env['DB_PASSWORD']);
+    define('DB_HOST', $env['DB_HOST']);
+} else {
+    die('Brak pliku .env');
+}
 // ** Database settings - You can get this info from your web host ** //
-define( 'DB_NAME', 'u304003356_najbor' );
-define( 'DB_USER', 'u304003356_admin' );
-define( 'DB_PASSWORD', 'BTR#;poG/$c7' );
-define( 'DB_HOST', 'localhost' );
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
