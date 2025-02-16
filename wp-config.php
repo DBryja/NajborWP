@@ -17,8 +17,8 @@ define('DB_HOST', $env['DB_HOST']);
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
-define('WP_HOME','https://najbor.pl/');
-define('WP_SITEURL','https://najbor.pl/');
+define('WP_HOME',$env['WP_HOME']);
+define('WP_SITEURL',$env['WP_SITEURL']);
 
 /**#@+
  * Authentication unique keys and salts.
