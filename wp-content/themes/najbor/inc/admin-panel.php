@@ -1,274 +1,245 @@
 <?php
-// Dodaj nowy widok "Na sprzedaż" do menu podtypów
-function add_na_sprzedaz_view($views) {
-	$current = (isset($_GET['na_sprzedaz']) && $_GET['na_sprzedaz'] == 1) ? 'class="current"' : '';
-	$views['na_sprzedaz'] = '<a href="' . admin_url('edit.php?post_type=prace&na_sprzedaz=1') . '" ' . $current . '>Na sprzedaż</a>';
-	return $views;
-}
-add_filter('views_edit-prace', 'add_na_sprzedaz_view');
+// Dodaj kolumny do listy postów
+add_filter('manage_prace_posts_columns', function($columns) {
+    $columns['priorytet'] = 'Priorytet';
+    $columns['na_sprzedaz'] = 'Dostępne';
+    $columns['katprace'] = 'Kategoria';
+    return $columns;
+});
 
-// Filtrowanie postów w widoku "Na sprzedaż"
-function filter_prace_by_na_sprzedaz($query) {
-	if (!is_admin() || !$query->is_main_query()) {
-		return;
-	}
+// Oznacz które kolumny mają być sortowalne
+add_filter('manage_edit-prace_sortable_columns', function($columns) {
+    $columns['priorytet'] = 'priorytet';
+    $columns['na_sprzedaz'] = 'na_sprzedaz';
+    return $columns;
+});
 
-	if ($query->get('post_type') == 'prace' && isset($_GET['na_sprzedaz']) && $_GET['na_sprzedaz'] == 1) {
-		$meta_query = [
-			[
-				'key' => 'na_sprzedaz',
-				'value' => '1',
-				'compare' => '='
-			]
-		];
-		$query->set('meta_query', $meta_query);
-	}
-}
-add_action('pre_get_posts', 'filter_prace_by_na_sprzedaz');
-// DODATKOWE POLA W PANELU ADMINISTRACYJNYM >>>
+// Wypełnij kolumny danymi
+add_action('manage_prace_posts_custom_column', function($column_name, $post_id) {
+    if ($column_name === 'katprace') {
+        $terms = get_the_terms($post_id, 'katprace');
+        if ($terms && !is_wp_error($terms)) {
+            echo implode(', ', wp_list_pluck($terms, 'name'));
+        }
+    }
 
-// <<< USUWANIE ZBĘDNYCH ELEMENTÓW Z PANELU ADMINISTRACYJNEGO
-// Usuwa elementy menu komentarzy z panelu administracyjnego
-function remove_comment_menu() {
-	remove_menu_page('edit-comments.php');
-}
-add_action('admin_menu', 'remove_comment_menu');
+    if ($column_name === 'priorytet') {
+        $priorytet = get_field('priorytet', $post_id);
+        echo $priorytet ? esc_html($priorytet) : 0;
+    }
 
-// Usuwa widgety komentarzy z pulpitu nawigacyjnego
-function remove_comment_dashboard_widgets() {
-	remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
-}
-add_action('wp_dashboard_setup', 'remove_comment_dashboard_widgets');
+    if ($column_name === 'na_sprzedaz') {
+        $dostepne = get_field('na_sprzedaz', $post_id);
+        echo $dostepne ? "Dostępne" : '-';
+    }
+}, 10, 2);
 
-// Wyłącza funkcje związane z komentarzami
-function disable_comments_support() {
-	// Wyłącza wsparcie dla komentarzy w typach postów
-	$post_types = get_post_types();
-	foreach ($post_types as $post_type) {
-		if(post_type_supports($post_type, 'comments')) {
-			remove_post_type_support($post_type, 'comments');
-			remove_post_type_support($post_type, 'trackbacks');
-		}
-	}
-}
-add_action('admin_init', 'disable_comments_support');
+// Obsługa sortowania
+add_action('pre_get_posts', function($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
 
-// Usuwa opcje z menu administracyjnego
-function disable_comments_admin_bar() {
-	global $wp_admin_bar;
-	$wp_admin_bar->remove_menu('comments');
-}
-add_action('wp_before_admin_bar_render', 'disable_comments_admin_bar');
+    $orderby = $query->get('orderby');
 
+    if ('priorytet' === $orderby) {
+        $query->set('meta_key', 'priorytet');
+        $query->set('orderby', 'meta_value_num');
+    }
 
-// Usuwa elementy menu postów z panelu administracyjnego
-function remove_post_menu() {
-	remove_menu_page('edit.php');
-}
-add_action('admin_menu', 'remove_post_menu');
+    if ('na_sprzedaz' === $orderby) {
+        $query->set('meta_key', 'na_sprzedaz');
+        $query->set('orderby', 'meta_value_num');
+    }
+});
 
-// Usuwa widgety postów z pulpitu nawigacyjnego
-function remove_post_dashboard_widgets() {
-	remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
-	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');
-}
-add_action('wp_dashboard_setup', 'remove_post_dashboard_widgets');
+// Dodaj obsługę quick edit
+add_action('quick_edit_custom_box', function($column_name, $post_type) {
+    if ($post_type !== 'prace') return;
 
-// Wyłącza wsparcie dla postów
-function disable_posts_support() {
-	// Wyłącza wsparcie dla domyślnych postów
-	remove_post_type_support('post', 'editor');
-	remove_post_type_support('post', 'comments');
-	remove_post_type_support('post', 'trackbacks');
-	remove_post_type_support('post', 'revisions');
-	remove_post_type_support('post', 'author');
-	remove_post_type_support('post', 'excerpt');
-	remove_post_type_support('post', 'page-attributes');
-	remove_post_type_support('post', 'thumbnail');
-	remove_post_type_support('post', 'custom-fields');
-}
-add_action('init', 'disable_posts_support');
+    switch($column_name) {
+        case 'priorytet':
+            ?>
+            <fieldset class="inline-edit-col-right">
+                <div class="inline-edit-col">
+                    <label>
+                        <span class="title">Priorytet</span>
+                        <span class="input-text-wrap">
+                            <input type="number" name="priorytet" value="" min="0" max="100">
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+            <?php
+            break;
+    }
+}, 10, 2);
 
-function enforce_thumbnail(){
-    global $pagenow;
+// Zapisz dane z quick edit
+add_action('save_post_prace', function($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
 
-    if ($pagenow === 'post-new.php' || $pagenow === 'post.php') {
-		?>
-		<script type="text/javascript">
-			document.addEventListener('DOMContentLoaded', function() {
-				const thumbnail = document.querySelector('#postimagediv');
-				thumbnail.style.display = 'none';
-			});
-		</script>
-	    <?php
-	}
-}
-function enforce_single_category_radio_buttons() {
-	global $pagenow;
-	$post_type = isset($_GET['post_type']) ? $_GET['post_type'] : (isset($_GET['post']) ? get_post_type($_GET['post']) : '');
+    // Zapisz priorytet
+    if (isset($_POST['priorytet'])) {
+        update_field('priorytet', sanitize_text_field($_POST['priorytet']), $post_id);
+    }
+});
 
-	if (($pagenow === 'post-new.php' && $post_type === 'prace') || ($pagenow === 'post.php' && $post_type === 'prace')) {
-		?>
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                const checkboxes = document.querySelectorAll('#katpracechecklist input[type="checkbox"]');
-                checkboxes.forEach(function(checkbox) {
-                    checkbox.type = 'radio';
-                    checkbox.name = 'tax_input[katprace][]';
-                });
-
-                if (checkboxes.length > 0) {
-                    checkboxes[0].required = true;
+// Dodaj obsługę JavaScript dla quick edit
+add_action('admin_footer', function() {
+    global $post_type;
+    if ($post_type !== 'prace') return;
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Obsługa quick edit
+            var $wp_inline_edit = inlineEditPost.edit;
+            inlineEditPost.edit = function(id) {
+                $wp_inline_edit.apply(this, arguments);
+                var post_id = 0;
+                if (typeof(id) == 'object') {
+                    post_id = parseInt(this.getId(id));
                 }
 
-                document.getElementById('post').addEventListener('submit', function(e) {
-                    const checkedCheckboxes = document.querySelectorAll('#katpracechecklist input[type="radio"]:checked');
-                    if (checkedCheckboxes.length !== 1) {
-                        alert('Proszę wybrać jedną z kategorii.');
-                        e.preventDefault();
-                        return false;
-                    }
-                });
-            });
-        </script>
-		<?php
-	}
-}
-add_action('admin_footer', 'enforce_single_category_radio_buttons');
+                if (post_id > 0) {
+                    var $row = $('#post-' + post_id);
+                    var priorytet = $row.find('.column-priorytet').text();
 
+                    // Wypełnij pole priorytet
+                    $('#edit-' + post_id).find('input[name="priorytet"]').val(priorytet);
+                }
+            };
+        });
+    </script>
+    <?php
+});
 
-function enforce_single_category_validation($post_id, $post, $update) {
-	if ($post->post_type != 'prace') {
-		return;
-	}
+// Dodaj filtry do listy postów w admin panelu
+add_action('restrict_manage_posts', function() {
+    global $typenow;
 
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-		return;
-	}
+    if ($typenow === 'prace') {
+        // Filtr dla kategorii
+        $taxonomy = 'katprace';
+        $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+        $terms = get_terms([
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+        ]);
 
-	$categories = isset($_POST['tax_input']['katprace']) ? $_POST['tax_input']['katprace'] : [];
+        if (!empty($terms)) {
+            echo '<select name="' . esc_attr($taxonomy) . '">';
+            echo '<option value="">Wszystkie kategorie</option>';
 
-	// Remove the default '0' value
-	$categories = array_filter($categories, function($value) {
-		return $value !== '0';
-	});
+            foreach ($terms as $term) {
+                $selected_attr = selected($selected, $term->slug, false);
+                echo sprintf(
+                    '<option value="%s" %s>%s</option>',
+                    esc_attr($term->slug),
+                    $selected_attr,
+                    esc_html($term->name)
+                );
+            }
 
-	if (count($categories) !== 1) {
-		set_transient('enforce_single_category_error', 'Please select exactly one category.', 10);
-		// Redirect back to the edit screen
-		wp_safe_redirect(add_query_arg(array('post' => $post_id, 'action' => 'edit'), admin_url('post.php')));
-		exit;
-	}
-}
-add_action('save_post', 'enforce_single_category_validation', 10, 3);
+            echo '</select>';
+        }
+    }
+});
 
-
-function display_enforce_single_category_error() {
-	if ($error = get_transient('enforce_single_category_error')) {
-		?>
-        <div class="notice notice-error is-dismissible">
-            <p><?php echo $error; ?></p>
-        </div>
-		<?php
-		delete_transient('enforce_single_category_error');
-	}
-}
-add_action('admin_notices', 'display_enforce_single_category_error');
-
-function enforce_single_thumbnail(){
+// Modyfikuj query na podstawie wybranych filtrów
+add_action('pre_get_posts', function($query) {
     global $pagenow;
 
-    if ($pagenow === 'post-new.php' || $pagenow === 'post.php') {
+    if (is_admin() && $pagenow === 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type'] === 'prace') {
+
+        $taxonomy = 'katprace';
+        if (isset($_GET[$taxonomy]) && !empty($_GET[$taxonomy])) {
+            $query->set('tax_query', array(
+                array(
+                    'taxonomy' => $taxonomy,
+                    'field' => 'slug',
+                    'terms' => sanitize_text_field($_GET[$taxonomy])
+                )
+            ));
+        }
+    }
+});
+
+// Wymuszenie wyboru max 1 kategorii
+function enforce_single_category_radio_buttons() {
+    global $pagenow, $post;
+
+    if ($pagenow === 'post.php' && isset($post->post_type) && $post->post_type === 'prace') {
         ?>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
-                const thumbnailInput = document.querySelector('#postimagediv input');
-                thumbnailInput.required = true;
+                const categoryInputs = document.querySelectorAll('#taxonomy-katprace input[type="checkbox"]');
+
+                categoryInputs.forEach(input => {
+                    input.addEventListener('change', function() {
+                        categoryInputs.forEach(i => {
+                            if (i !== input) {
+                                i.checked = false;
+                            }
+                        });
+                    });
+                });
             });
         </script>
         <?php
     }
 }
-add_action('admin_footer', 'enforce_single_thumbnail');
-function output_custom_fields_js_data() {
-	global $post;
+add_action('admin_footer', 'enforce_single_category_radio_buttons');
 
-	// Only run this on the post edit screen
-	if (!is_admin() || !in_array(get_current_screen()->base, array('post', 'edit'))) {
-		return;
-	}
+// Wymuś wybór jednej kategorii
+add_action('save_post_prace', function($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!isset($_POST['post_type']) || $_POST['post_type'] !== 'prace') return;
+    if (!current_user_can('edit_post', $post_id)) return;
 
-	// Check if the post type is 'prace'
-	if (get_post_type($post->ID) !== 'prace') {
-		return;
-	}
+    // Sprawdź, czy post ma przypisaną kategorię
+    $terms = wp_get_post_terms($post_id, 'katprace');
+    if (empty($terms)) {
+        wp_die('Musisz wybrać dokładnie jedną kategorię przed zapisaniem.', 'Błąd zapisu', [
+            'back_link' => true
+        ]);
+    }
+}, 10, 1);
 
-	// Fetch custom fields data
-	$custom_fields = array(
-		'tytul' => get_field('tytul', $post->ID),
-		'Obraz' => get_field('Obraz', $post->ID),
-		'na_sprzedaz' => get_field('na_sprzedaz', $post->ID),
-		'opis' => get_field('opis', $post->ID),
-		'metoda' => get_field('metoda', $post->ID),
-		'wymiary' => get_field('wymiary', $post->ID),
-		'oprawa' => get_field('oprawa', $post->ID),
-		'rok_powstania' => get_field('rok_powstania', $post->ID),
-		'tytul_en' => get_field('tytul_en', $post->ID),
-		'opis_en' => get_field('opis_en', $post->ID),
-		'metoda_en' => get_field('metoda_en', $post->ID),
-		'oprawa_en' => get_field('oprawa_en', $post->ID),
-		'tytul_fr' => get_field('tytul_fr', $post->ID),
-		'opis_fr' => get_field('opis_fr', $post->ID),
-		'metoda_fr' => get_field('metoda_fr', $post->ID),
-		'oprawa_fr' => get_field('oprawa_fr', $post->ID)
-	);
-
-	// Output the custom fields data as a JavaScript variable
-	echo '<script type="text/javascript">';
-	echo 'var customFieldsData = ' . json_encode($custom_fields) . ';';
-//    echo 'console.log(customFieldsData);';
-	echo '</script>';
-}
-add_action('admin_footer', 'output_custom_fields_js_data');
-function fill_custom_fields_js() {
-	global $post;
-	// Only run this on the post edit screen
-	if (!is_admin() || !in_array(get_current_screen()->base, array('post', 'edit')))
-		return;
-	// Check if the post type is 'prace'
-	if (get_post_type($post->ID) !== 'prace')
-		return;
-	?>
-
+// Wyłącz przycisk przed wybraniem
+add_action('admin_footer', function() {
+    global $post_type;
+    if ($post_type !== 'prace') return;
+    ?>
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log(customFieldsData);
-            if (typeof customFieldsData !== 'undefined') {
-                for (var key in customFieldsData) {
-                    if (customFieldsData.hasOwnProperty(key)) {
-                        var fieldValue = customFieldsData[key];
-                        console.log(fieldValue);
-                        var fieldDiv = document.querySelector('div[data-name="' + key + '"]');
-                        if (fieldDiv) {
-                            var input = fieldDiv.querySelector('input, textarea, img');
-                            if (input) {
-                                if (input.type === 'checkbox') {
-                                    input.checked = fieldValue ? true : false;
-                                } else if (input.name === 'acf[field_668f90d3a5cc7]') {
-                                    input.value = fieldValue.ID;
-                                } else {
-                                    input.value = fieldValue.replace(/<\/[^>]+(>|$)/g, "");
-                                }
-                            }
-                        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryInputs = document.querySelectorAll('#taxonomy-katprace input[type="checkbox"]');
+            const updateButton = document.querySelector('#publish'); // Przycisk "Aktualizuj"
+            const checkCategorySelection = () => {
+                let isChecked = false;
+                categoryInputs.forEach(input => {
+                    if (input.checked) {
+                        isChecked = true;
                     }
-                }
-            }
+                });
+
+                updateButton.disabled = !isChecked;
+            };
+            updateButton.disabled = true;
+            categoryInputs.forEach(input => {
+                input.addEventListener('change', checkCategorySelection);
+            });
         });
     </script>
-	<?php
+    <?php
+});
+
+// Ukryj domyślne pole miniatury na stronie edycji postów
+function enforce_thumbnail() {
+    echo '<style>#postimagediv { display: none; }</style>';
 }
-add_action('admin_footer', 'fill_custom_fields_js');
-
-
+add_action('admin_footer', 'enforce_thumbnail');
+// test
 ?>
