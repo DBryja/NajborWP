@@ -13,7 +13,7 @@ $for_sale = ml_for_sale();
 				?>
 				<div class="prace-archive__row" id="<?php echo $ID; ?>">
 					<article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
-						<a href="<?php the_permalink();?>" <?php echo $forSaleAttrib?>>
+						<a id="post-<?php the_ID(); ?>" href="<?php the_permalink();?>" <?php echo $forSaleAttrib?>>
 							<picture>
 								<source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
 								<source srcset="<?php echo $image["url"]?>" type="image/jpeg">

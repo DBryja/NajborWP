@@ -1,5 +1,7 @@
 @import "mixins";
-
+main:has(.single){
+  margin-top: 10rem;
+}
 .single{
   article{
     padding: 0 1rem;
@@ -8,23 +10,23 @@
     align-items: center;
     margin: 0 auto;
     grid-template-rows: repeat(auto-fit, minmax(max-content, 1fr));
+    column-gap: 2rem;
 
     @include breakpoint('md'){
       grid-template-rows: 1fr;
       grid-template-columns: 3fr 2fr;
-      //padding: 0 2rem;
       padding: 0;
     }
     @include breakpoint("lg"){
       padding: 0;
-      max-width: 1400px;
+      max-width: clamp(800px, 60vw, 2000px);
       column-gap: 3rem;
     }
   }
 
   &__image{
     height: 100%;
-    max-height: 800px;
+    max-height: 70vh;
     width: clamp(50%, fit-content, 100%);
     align-self: start;
     picture, img{
@@ -46,7 +48,6 @@
     grid-template-rows: min-content 1fr min-content;
 
     @include breakpoint("lg"){
-      //max-width: 40%;
       column-gap: 2rem;
     }
 
@@ -60,10 +61,6 @@
     p{
       grid-area: desc;
       margin-bottom: 1rem;
-
-      //@include breakpoint("lg"){
-      //  margin-bottom: 0;
-      //}
     }
 
     table{
@@ -85,39 +82,99 @@
       padding: 2px 0;
     }
   }
+  &__back{
+    margin: 3rem auto;
+    text-decoration: underline;
+  }
 }
 
-.single.landscape{
-  article{
-    max-width: 1200px;
-    @include breakpoint('md'){
-      grid-template-rows: repeat(2, min-content);
-      grid-template-columns: 1fr;
-      //padding: 0 2rem;
-      padding: 0;
-    }
+//.single.landscape{
+//  article{
+//    max-width: clamp(800px, 60vw, 2000px);
+//    @include breakpoint('md'){
+//      grid-template-rows: repeat(2, min-content);
+//      grid-template-columns: 1fr;
+//      //padding: 0 2rem;
+//      padding: 0;
+//    }
+//  }
+//  .single__image{
+//    margin-bottom: 1rem;
+//    max-height: unset;
+//    height: 100%;
+//    width: 100%;
+//  }
+//
+//  .single__details{
+//    max-width: 100%;
+//    max-height: min-content;
+//    p{
+//      margin-bottom: 1rem;
+//      @include breakpoint("lg"){
+//        margin-bottom: 0;
+//      }
+//    }
+//
+//    @include breakpoint("lg"){
+//      column-gap: 2rem;
+//      grid-template-columns: 1fr 1fr;
+//      grid-template-areas:"title desc"
+//                        "table desc";
+//    }
+//  }
+//}
+html:has(.fullscreen.active){
+  &, body, main{
+    overflow: hidden;
   }
-  .single__image{
-    margin-bottom: 1rem;
-    max-height: unset;
-    height: unset;
-    width: 100%;
+}
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
   }
 
-  .single__details{
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__image-container {
     max-width: 100%;
-    max-height: min-content;
-    p{
-      margin-bottom: 1rem;
-      @include breakpoint("lg"){
-        margin-bottom: 0;
-      }
-    }
+    max-height: 100vh;
+  }
 
-    @include breakpoint("lg"){
-      grid-template-columns: 3fr 4fr;
-    grid-template-areas:"title desc"
-                        "table desc";
-    }
+  &__image {
+    max-width: 100%;
+    max-height: 100vh;
+    object-fit: contain;
   }
 }

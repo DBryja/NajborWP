@@ -22,6 +22,7 @@
   }
 
   &__image{
+    --clipX: 50%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -29,12 +30,13 @@
     background-size: cover;
     background-image: none;
     background-position: center;
-    width: 0;
+    width: 10rem;
     height: 18rem;
     filter: brightness(2);
     z-index: $z-cursor-image;
     transform: skewX(0) skew(0);
-    will-change: skewX, skew, filter, width, background-image;
+    clip-path: inset(0 var(--clipX) 0 var(--clipX));
+    will-change: skewX, skew, filter, clip-path, background-image;
   }
   &__arrow{
     width: 100%;
@@ -72,7 +74,6 @@
   }
 }
 
-
 body:has(div.menu.active:hover){
   cursor: pointer;
   .cursor{
@@ -82,8 +83,6 @@ body:has(div.menu.active:hover){
     }
   }
 }
-
-
 .cursor--click:hover, .cursor--img:hover, a{
   cursor: pointer;
 }

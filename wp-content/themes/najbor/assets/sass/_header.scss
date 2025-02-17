@@ -117,7 +117,6 @@ $szpiegPath: "../images/szpieg.png";
     padding: 1rem 2rem;
   }
 
-
   .logo {
     aspect-ratio: 1/1;
     width: var(--exit-width);
@@ -139,9 +138,13 @@ $szpiegPath: "../images/szpieg.png";
 
   h3{
     display: none;
-  @include breakpoint(lg){
-    display: inline-block;
-  }
+    @include breakpoint(sm) {
+      display: inline-block;
+      font-size: 3rem;
+    }
+    @include breakpoint(md) {
+      font-size: 4rem;
+    }
   }
 
   &__menu{
@@ -196,24 +199,51 @@ body:has(div.ranAnim){
   }
 }
 
-
-.categories-list{
-  display: none;
-
-  @include breakpoint(lg){
-    display: flex;
-    flex-direction: row;
-    gap: 1.25rem;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    z-index: $z-header;
-    top: 8rem;
-    left: 50%;
-    transform: translateX(-50%);
+body:has(.categories-list) main{
+  margin-top: 14rem;
+  @include breakpoint(sm){
+    margin-top: 11rem;
   }
+}
+.categories-list{
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: $z-header;
+  top: 9rem;
+  width: 250px;
+  flex-wrap: wrap;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
 
   a, h4{
     white-space: nowrap;
+  }
+  h4 {
+    font-size: 1.2rem;
+    display: block;
+    position: relative;
+    &:not(:last-of-type):after{
+      content: "";
+      position: absolute;
+      right: calc(-1.25rem / 2);
+      top: 35%;
+      bottom: 15%;
+      border-right: 1px solid $black;
+    }
+    @include breakpoint(md){
+      font-size: 1.6rem;
+    }
+  }
+  @include breakpoint(sm){
+    width: 100%;
+    top: 7.5rem;
+  }
+  @include breakpoint(md){
+    top: 8rem;
   }
 }

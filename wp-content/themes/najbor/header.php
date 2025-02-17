@@ -136,18 +136,18 @@
                             "name": [
                                 {
                                     "@language": "pl",
-                                    "@value": "Na Sprzedaż"
+                                    "@value": "Dostępne"
                                 },
                                 {
                                     "@language": "en",
-                                    "@value": "For Sale"
+                                    "@value": "Available"
                                 },
                                 {
                                     "@language": "fr",
-                                    "@value": "à Vendre"
+                                    "@value": "Disponible"
                                 }
                             ],
-                            "item": "<?php echo WP_HOME?>/na-sprzedaz"
+                            "item": "<?php echo WP_HOME?>/dostepne"
                         }
                     ]
                 },
@@ -237,10 +237,7 @@
         <?php get_heading_template(); ?>
     </h3>
     <?php
-    if (is_page('na-sprzedaz')
-        || is_page("dostepne")
-        || is_post_type_archive('prace')
-        || is_tax('katprace')
+    if (is_post_type_archive('prace') || is_tax('katprace')
     ) {
         get_template_part("template-parts/header", "categories");
     }
@@ -372,7 +369,6 @@
     // Preventing menu button spam
     let isProcessing = false;
     button.addEventListener('click', async (e) => {
-        console.log(isProcessing);
         if (isProcessing) return;
         isProcessing = true;
         e.target.disabled = true;

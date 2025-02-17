@@ -74,13 +74,13 @@ categoryItems.forEach((item) => {
             backgroundImage: `url(${thumbnail})`
         });
         gsap.fromTo(cursorImage, {
-            width: 0,
             opacity: 1,
             filter: "brightness(2)",
+            "--clipX": "50%"
         },{
             opacity: 1,
             duration: 0.5,
-            width: '10rem',
+            "--clipX": "0%",
             ease: 'power3.out',
             filter: "brightness(1)"
         });
@@ -89,14 +89,14 @@ categoryItems.forEach((item) => {
     item.addEventListener('mouseleave', function () {
         gsap.to(cursorImage, {
             duration: 0.5,
-            width: 0,
+            "--clipX": "50%",
             opacity: 0,
             filter: "brightness(2)",
             ease: 'power3.out',
         });
         hideImageTimeout = setTimeout(() => {
             gsap.set(cursorImage, {
-                width: 0,
+                "--clipX": "50%",
                 opacity: 0,
                 backgroundImage: 'none',
             });

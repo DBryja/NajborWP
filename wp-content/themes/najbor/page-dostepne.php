@@ -33,7 +33,7 @@ $p1->fr = get_field('p1_fr');
 				$forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang]);
                 ?>
                 <div class="prace-archive__row">
-                    <article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
+                    <article id="<?php echo $ID; ?>" class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
                         <a href="<?php the_permalink(); ?>" <?php echo $forSaleAttrib?>>
                             <picture>
                                 <source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
