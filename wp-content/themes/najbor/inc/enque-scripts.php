@@ -9,7 +9,7 @@ add_action("after_setup_theme", "najbor_theme_support");
 function najbor_register_styles(){
 	$version = wp_get_theme()->get('Version');
 	wp_enqueue_style('najbor-style', get_template_directory_uri() . '/style.css', array(), $version, 'all');
-	wp_enqueue_style('theme-style', get_template_directory_uri() . '/assets/css/style.css', array(), null, 'all');
+	wp_enqueue_style('theme-style', get_template_directory_uri() . '/assets/css/style.css', array(), $version, 'all');
 }
 add_action("wp_enqueue_scripts", "najbor_register_styles");
 
