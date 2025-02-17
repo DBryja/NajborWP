@@ -216,7 +216,8 @@ add_action('admin_footer', function() {
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const categoryInputs = document.querySelectorAll('#taxonomy-katprace input[type="checkbox"]');
-            const updateButton = document.querySelector('#publish'); // Przycisk "Aktualizuj"
+            const updateButton = document.querySelector('#publish');
+
             const checkCategorySelection = () => {
                 let isChecked = false;
                 categoryInputs.forEach(input => {
@@ -224,10 +225,17 @@ add_action('admin_footer', function() {
                         isChecked = true;
                     }
                 });
-
                 updateButton.disabled = !isChecked;
             };
-            updateButton.disabled = true;
+
+            // Sprawdź początkowy stan checkboxów
+            let initialCheck = false;
+            categoryInputs.forEach(input => {
+                if (input.checked) {
+                    initialCheck = true;
+                }
+            });
+            updateButton.disabled = !initialCheck;
             categoryInputs.forEach(input => {
                 input.addEventListener('change', checkCategorySelection);
             });
@@ -241,5 +249,4 @@ function enforce_thumbnail() {
     echo '<style>#postimagediv { display: none; }</style>';
 }
 add_action('admin_footer', 'enforce_thumbnail');
-// test
 ?>
