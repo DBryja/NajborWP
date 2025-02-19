@@ -40,9 +40,21 @@ $halfBlack: transparentize($black, 0.5);
   position: relative;
   width: 100%;
 
-  &:has(.form-field__input.filled), &:has(.form-field__input:focus){
+  &:has(.form-field__input.filled),
+  &:has(.form-field__input:focus),
+  &:has(.form-field__input:valid),
+  {
     .form-field__label{
       transform: translate(-8px, -1rem) scale(0.8);
+    }
+  }
+
+  &:has(.form-field__input:user-invalid){
+    .form-field__input{
+      border-bottom-color: $red;
+    }
+    .form-field__label{
+      color: $red;
     }
   }
   &__label{

@@ -2,8 +2,9 @@
 get_header();
 $lang = get_site_language();
 $labels = ml_single_labels();
-$languages = ml_languages();
-$for_sale= ml_for_sale();
+$for_sale = ml_for_sale();
+$ask_for_price = ml_ask_for_price();
+$back_to_search = ml_back_to_search();
 ?>
 
 <?php while ( have_posts() ) : the_post();
@@ -11,7 +12,8 @@ $ID = get_the_ID() ? get_the_ID() : the_ID();
 $acf = get_praca_data( $ID );
 $orientation = $acf["obraz"]["width"] > $acf["obraz"]["height"]*1.3 ? "landscape" : "portrait";
 $url = $acf["obraz"]["url"];
-$forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang]);
+$na_sprzedaz = get_post_meta($ID, 'na_sprzedaz', true);
+$forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang], $na_sprzedaz);
 
 $terms = get_the_terms($ID, 'katprace');
 $term_slug = '';
@@ -31,13 +33,8 @@ if(isset($referrer)){
 }
 ?>
 
-<!--    <a class="single__back" href="--><?php //echo isset($_SERVER['HTTP_REFERER'])
-//        ? esc_url($_SERVER['HTTP_REFERER'])
-//        : get_term_link($term_slug, 'katprace') ?><!--">-->
-<!--        Wróć do przeglądania-->
-<!--    </a>-->
 <div class="single <?php echo $orientation?>">
-    <article id="post-<?php echo $ID; ?>" <?php post_class(); ?>>
+    <article id="post-<?php echo $ID; ?>" <?php post_class(); ?> data-title="<?php echo get_value_with_fallback($acf, "tytul", $lang)?>">
         <div class="single__image cursor--click" <?php echo $forSaleAttrib?> >
             <picture>
                 <source srcset="<?php echo $url;?>.webp" type="image/webp">
@@ -67,9 +64,17 @@ if(isset($referrer)){
         </div>
 		<?php endwhile; ?>
 </div>
-<a class="single__back" href="<?php echo esc_url($go_back_url); ?>">
-    Wróć do przeglądania
-</a>
+<div class="single__short-links">
+    <?php
+    if ( $na_sprzedaz == 1 ) { ?>
+        <a class="buy-button" href="#contact">
+            <?php echo $ask_for_price[$lang]?>
+        </a>
+    <?php } ?>
+    <a href="<?php echo esc_url($go_back_url); ?>">
+        <?php echo $back_to_search[$lang]?>
+    </a>
+</div>
 <div class="fullscreen">
     <div class="fullscreen__close">&times;</div>
     <div class="fullscreen__image-container">
@@ -81,6 +86,7 @@ if(isset($referrer)){
     const fullscreen = document.querySelector('.fullscreen');
     const closeButton = document.querySelector('.fullscreen__close');
     const singleImage = document.querySelector('.single__image');
+    const buyButton = document.querySelector(".buy-button");
     singleImage.addEventListener('click', function() {
         fullscreen.style.display = 'flex';
         document.body.style.overflow = 'hidden';
@@ -102,5 +108,15 @@ if(isset($referrer)){
         fullscreen.style.display = 'none';
         document.body.style.overflow = '';
     }
+    if (buyButton){
+       buyButton.addEventListener("click", ()=>{
+           const subjectInput = document.querySelector("input#subject");
+           const title = document.querySelector("article").dataset.title;
+           if (subjectInput && title) {
+               subjectInput.value = title;
+           }
+       })
+    }
+
 </script>
 <?php get_footer(); ?>

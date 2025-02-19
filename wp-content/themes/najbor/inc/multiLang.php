@@ -42,6 +42,22 @@ function ml_for_sale(){
 	);
 }
 
+function ml_ask_for_price(){
+	return array(
+		'pl' => "Zapytaj o cenę",
+		'en' => "Ask for the price",
+		'fr' => "Demandez le prix"
+	);
+}
+
+function ml_back_to_search(){
+	return array(
+		'pl' => "Wróć do przeglądania",
+		'en' => "Return to browsing",
+		'fr' => "Revenir à la navigation"
+	);
+}
+
 // CONTACT FORM
 function ml_form_fields(){
 	return array(

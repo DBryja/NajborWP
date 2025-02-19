@@ -1,19 +1,23 @@
 <?php
 function get_site_language() {
-	$path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-	$segments = explode('/', $path);
+    $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $segments = explode('/', $path);
 
-	$available_languages = ['en', 'fr'];
+    $available_languages = ['en', 'fr'];
 
-	// Obsługa lokalnego środowiska (localhost/wordpress)
-	if (!empty($segments) && $segments[0] === 'wordpress') {
-		// Sprawdzanie drugiego segmentu jako języka
-		return in_array($segments[1] ?? '', $available_languages) ? $segments[1] : 'pl';
-	}
+    // Sprawdzenie, czy jesteśmy na localhost
+    $isLocalhost = strpos($_SERVER['HTTP_HOST'], 'localhost') !== false;
 
-	// Obsługa środowiska produkcyjnego
-	return in_array($segments[0], $available_languages) ? $segments[0] : 'pl';
+    // Jeśli działamy lokalnie i mamy przynajmniej jeden segment, traktujemy go jako nazwę katalogu projektu
+    if ($isLocalhost && !empty($segments)) {
+        // Sprawdzamy, czy drugi segment to język
+        return in_array($segments[1] ?? '', $available_languages) ? $segments[1] : 'pl';
+    }
+
+    // Standardowa obsługa produkcji
+    return in_array($segments[0], $available_languages) ? $segments[0] : 'pl';
 }
+
 function get_prefix($lang='') {
 	$lang = $lang ?: get_site_language();
 	return $lang !== 'pl' ? "/$lang" : '';
@@ -155,14 +159,17 @@ function get_image_shape($width, $height) {
 	}
 }
 
-function get_forSale_attrib($ID, $translation){
-	$na_sprzedaz = get_post_meta($ID, 'na_sprzedaz', true);
-
-	if($na_sprzedaz == '1') {
-		return 'data-forSale="'.esc_attr($translation).'" aria-label="'.esc_attr($translation).'"';
-	} else {
-		return '';
-	}
+function get_forSale_attrib($ID, $translation, $value='0'){
+        if (
+            $value == '1'
+            || get_post_meta($ID, 'na_sprzedaz', true) == '1'
+        ) {
+            return sprintf(
+                'data-forSale="%s" aria-label="%s"',
+                esc_attr($translation),
+                esc_attr($translation));
+        }
+        return '';
 }
 
 function get_fullUrl(){

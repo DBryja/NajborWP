@@ -19,6 +19,7 @@
 @import "cursor";
 html{
     overflow-x: hidden !important;
+    scroll-behavior: smooth;
 }
 body{
     background-color: $white;

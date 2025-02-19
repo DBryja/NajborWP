@@ -14,7 +14,7 @@ $alerts = ml_alerts();
     <p class="alert-message"><?php echo $alerts["error"][$lang]?></p>
 </div>
 
-<div class="contact">
+<div id="contact" class="contact">
     <div class="contact__decoration" aria-hidden="true"></div>
     <form method="POST" action="" class="form" id="contactForm" aria-labelledby="formHeading">
         <h2 id="formHeading">

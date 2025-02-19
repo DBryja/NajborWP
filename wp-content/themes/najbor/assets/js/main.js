@@ -44,10 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (currentScroll > headerBottom) {
         // Scroll down animation
-         gsap.to(hideOnScroll, {duration: 0.1, y: -20, opacity: 0, pointerEvents: "none", ease: 'none'});
+         gsap.to(hideOnScroll, {duration: 0.1, y: -20, opacity: 0, pointerEvents: "none", ease: "none"});
     } else {
         // Scroll up animation
-        gsap.to(hideOnScroll, {duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: 'none'});
+        gsap.to(hideOnScroll, {duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: "none"});
     }
 
     lastScroll = currentScroll <= 0 ? 0 : currentScroll;

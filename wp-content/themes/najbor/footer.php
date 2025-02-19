@@ -24,7 +24,7 @@
         });
     }
 
-    document.querySelectorAll('a:not([target="_blank"])').forEach(link => {
+    document.querySelectorAll(`a:not([target="_blank"]):not([href^="#"])`).forEach(link => {
         link.addEventListener('click', (event) => {
             if(isTransitioning) return;
             isTransitioning = true;

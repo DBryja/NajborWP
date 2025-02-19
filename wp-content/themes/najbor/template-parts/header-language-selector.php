@@ -33,33 +33,31 @@
             let basePath = origin;
             let newPath = '';
 
-            // Remove existing language segment if present
+            // Lista obsługiwanych języków
             const languages = ['pl', 'fr', 'en'];
             const filtered_segments = path_segments.filter(segment => !languages.includes(segment));
 
-            // Check if we are on localhost/wordpress
-            const isWordPress = filtered_segments.includes('wordpress');
+            // Sprawdzenie, czy działamy na localhost
+            const isLocalhost = window.location.hostname.includes('localhost');
 
-            // Construct the new path based on language change
-            if (isWordPress) {
-                const wordpressIndex = filtered_segments.indexOf('wordpress');
-                newPath = filtered_segments.slice(wordpressIndex + 1).join('/'); // Skip 'wordpress'
+            // Jeśli jesteśmy na localhost, zakładamy, że pierwsza część ścieżki to nazwa folderu (np. NajborWP)
+            let projectFolder = isLocalhost ? filtered_segments[0] : null;
+            let newSegments = isLocalhost ? filtered_segments.slice(1) : filtered_segments;
 
-                // Handle language prefix
-                if (selectedLanguage === 'pl') {
-                    window.location.href = `${basePath}/wordpress/${newPath}`;
-                } else {
-                    window.location.href = `${basePath}/wordpress/${selectedLanguage}/${newPath}`;
-                }
+            newPath = newSegments.join('/');
+
+            // Budowanie nowego URL-a
+            if (isLocalhost && projectFolder) {
+                // Jeśli język to 'pl', nie dodajemy przedrostka językowego
+                window.location.href = selectedLanguage === 'pl'
+                    ? `${basePath}/${projectFolder}/${newPath}`
+                    : `${basePath}/${projectFolder}/${selectedLanguage}/${newPath}`;
             } else {
-                newPath = filtered_segments.join('/');
-                if (selectedLanguage === 'pl') {
-                    window.location.href = `${basePath}/${newPath}`;
-                } else {
-                    window.location.href = `${basePath}/${selectedLanguage}/${newPath}`;
-                }
+                // Normalne przekierowanie dla produkcji
+                window.location.href = selectedLanguage === 'pl'
+                    ? `${basePath}/${newPath}`
+                    : `${basePath}/${selectedLanguage}/${newPath}`;
             }
         });
     });
-
 </script>
