@@ -27,17 +27,18 @@
         $category = get_katprace_object($lang);
 		$term_id = $category["term_id"];
         $img = get_field('thumbnail', 'katprace_' . $term_id);
-		$img_width = 600;
-		$img_height= 800;
-        $title = $category["name"]." | Najbor";
-	} elseif (is_singular("prace")){
+		$img_width = 1200;
+		$img_height= 630;
+        $title = $OGtitle = $category["name"]." | Najbor";
+	}
+    else if (is_singular("prace")){
 		$current_post = get_queried_object();
         $ID = $current_post->ID;
         $acf = get_praca_data($ID);
         $img = $acf["obraz"]["url"];
         $img_width = $acf["obraz"]["width"];
         $img_height = $acf["obraz"]["height"];
-        $title = get_value_with_fallback($acf, "tytul", $lang)." | Najbor";
+        $title = $OGtitle = get_value_with_fallback($acf, "tytul", $lang)." | Najbor";
         $desc = strip_tags(get_value_with_fallback($acf, "opis", $lang));
     }
 ?>

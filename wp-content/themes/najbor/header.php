@@ -11,9 +11,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="pl,en,fr">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="https://github.com/dbryja">
+    <meta name="author" content="Wiktor Najbor">
     <link rel="shortcut icon" href="<?php echo get_site_icon_url()?>">
     <meta name="description" content="<?php echo $description[$lang]?>">
+    <link rel="canonical" href="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:locale" content="<?php echo ml_returnLocale($lang)?>">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Najbor.pl">
@@ -247,7 +248,10 @@
         <button class="header__menu cursor--click h4 anim" tabindex="0">
                 menu
         </button>
-        <?php get_template_part("template-parts/header", "language-selector") ?>
+        <?php
+            if (defined('MULTI_LANG') && MULTI_LANG)
+                get_template_part("template-parts/header", "language-selector");
+        ?>
     </div>
 </header>
 <div class="menu inactive">
@@ -274,7 +278,10 @@
         <?php echo $labels["zamknij"][$lang]?>
     </button>
     <div class="position--bottom">
-        <?php get_template_part("template-parts/header", "language-selector") ?>
+        <?php
+        if (defined('MULTI_LANG') && MULTI_LANG)
+            get_template_part("template-parts/header", "language-selector");
+        ?>
     </div>
     <?php
     get_template_part("template-parts/content", "copyrights");

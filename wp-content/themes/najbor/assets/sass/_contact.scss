@@ -5,23 +5,28 @@ $halfBlack: transparentize($black, 0.5);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: clamp(50vh, 700px, 100vh);
+  height: auto;
   width: 100%;
-  //max-width: 1400px;
   margin: 0 auto;
   gap: 3rem;
+  padding-top: 3rem;
 
   @include breakpoint(lg){
     flex-direction: row;
+    height: clamp(50vh, 700px, 100vh);
   }
 
   &__decoration{
+    display: none;
     height: 100%;
     width: 100%;
-    background-image: url("../images/hotline.jpg");
+    background-image: url("../images/kontakt2.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    @include breakpoint(lg){
+      display: block;
+    }
   }
 }
 .form{

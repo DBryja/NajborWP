@@ -9,7 +9,7 @@ foreach ($lines as $line) {
         $env[trim($key)] = trim($value, "\" \t\n\r\0\x0B");
     }
 }
-
+define("MULTI_LANG", strtolower($env["MULTI_LANG"]) === 'true');
 define('DB_NAME', $env['DB_NAME']);
 define('DB_USER', $env['DB_USER']);
 define('DB_PASSWORD', $env['DB_PASSWORD']);
