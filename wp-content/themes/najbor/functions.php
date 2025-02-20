@@ -29,40 +29,36 @@ function custom_sort_posts_by_priority($query) {
     }
 
     $meta_query = [
-        'relation' => 'OR',
-        // Grupa 1: Posty z wysokim priorytetem (80-100)
-        'high_priority' => [
-            'key' => 'priorytet',
-            'value' => array(80, 100),
+        'super_priority' => [
+            'key' => 'super_priorytet',
             'type' => 'NUMERIC',
-            'compare' => 'BETWEEN'
+            'compare' => 'EXISTS',
         ],
-        // Grupa 2: Posty na sprzedaż
         'for_sale' => [
             'key' => 'na_sprzedaz',
-            'value' => '1',
-            'compare' => '='
-        ],
-        // Grupa 3: Wszystkie pozostałe posty z priorytetem
-        'normal_priority' => [
-            'key' => 'priorytet',
+            'type' => 'NUMERIC',
             'compare' => 'EXISTS',
-            'type' => 'NUMERIC'
+        ],
+        'priority' => [
+            'key' => 'priorytet',
+            'type' => 'NUMERIC',
+            'compare' => 'EXISTS',
         ]
     ];
 
     $query->set('meta_query', $meta_query);
 
     $orderby = [
-        'high_priority' => 'DESC',
+        'super_priority' => 'DESC',
         'for_sale' => 'DESC',
-        'priorytet' => 'DESC',
+        'priority' => 'DESC',
         'date' => 'DESC'
     ];
 
     $query->set('orderby', $orderby);
 }
 add_action('pre_get_posts', 'custom_sort_posts_by_priority');
+
 // UTILS >>>
 
 // <<< REJESTROWANIE ACF I CPT
