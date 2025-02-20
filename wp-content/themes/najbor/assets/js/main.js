@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     const items = document.querySelectorAll('.prace-archive__item');
-    if (!items) return;
+    if (!items.length) return;
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+
+    const totalColumns = 10;
+    let previousStartColumn = null;
+
     items.forEach(item => {
         const shape = item.getAttribute('data-shape');
-        let startColumn, endColumn, span;
+        let span;
 
         switch (shape) {
             case 'thin':
@@ -22,13 +27,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 span = 5;
                 break;
         }
-        startColumn = Math.floor(Math.random() * (10 - span + 1)) + 1;
-        endColumn = startColumn + span;
+        if(isMobile)
+            span = Math.min(span+2, 10);
+
+        let startColumn = Math.floor(Math.random() * (totalColumns - span + 1)) + 1;
+        // If we land on the same column as 1 item before, then try to move
+        if (previousStartColumn !== null && startColumn === previousStartColumn) {
+            if (startColumn > 1) {
+                startColumn--;
+            } else if (startColumn + span <= totalColumns) {
+                startColumn++;
+            }
+        }
+        let endColumn = startColumn + span;
 
         item.style.gridColumnStart = startColumn;
         item.style.gridColumnEnd = endColumn;
+
+        previousStartColumn = startColumn;
     });
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
