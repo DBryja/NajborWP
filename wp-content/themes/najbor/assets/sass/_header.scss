@@ -230,6 +230,7 @@ body:has(.categories-list) main{
   left: 50%;
   transform: translateX(-50%);
   overflow-x: hidden;
+  padding: 4px 0;
 
   a, h4{
     white-space: nowrap;
