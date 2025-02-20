@@ -49,7 +49,7 @@ function get_value_with_fallback( $acf, $field, $lang) {
 function get_katprace_categories_with_translations() {
 	$categories = get_terms([
 		'taxonomy' => 'katprace',
-		'hide_empty' => false,
+		'hide_empty' => true,
 	]);
 
 	$categories_with_translations = [];
@@ -148,9 +148,9 @@ function get_praca_data($ID){
 function get_image_shape($width, $height) {
 	$aspect_ratio = $width / $height;
 
-	if ($aspect_ratio <= 0.8 ) {
+	if ($aspect_ratio <= 0.7 ) {
 		return 'thin';
-	} elseif ($aspect_ratio > 0.8 && $aspect_ratio <= 1.25) {
+	} elseif ($aspect_ratio > 0.7 && $aspect_ratio <= 1.25) {
 		return 'square';
 	} elseif ($aspect_ratio > 1.25 && $aspect_ratio <= 1.5) {
 		return 'wide';

@@ -6,7 +6,11 @@ $home_url = get_home_url_with_prefix($lang);
 
 // Pobranie aktualnej kategorii (jeśli jesteśmy na stronie kategorii)
 $current_category = get_queried_object();
-$current_slug = $current_category ? $current_category->slug : null;
+$current_slug = '';
+
+if ($current_category && isset($current_category->slug)) {
+    $current_slug = $current_category->slug;
+}
 
 // Sprawdzenie, czy jesteśmy na STRONIE GŁÓWNEJ /prace/, ale NIE na podstronie kategorii
 $is_main_prace_page = is_post_type_archive('prace') || (is_page('prace') && !$current_category);

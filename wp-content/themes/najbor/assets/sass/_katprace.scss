@@ -1,51 +1,47 @@
 .prace-archive{
-  display: flex;
-  flex-direction: column;
+  display: grid;
   row-gap: 3rem;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(10%, 1fr));
 
   &__row{
+    grid-column: 1/-1;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(10%, 1fr));
-    min-height: 300px;
+    grid-template-columns: subgrid;
   }
 
   &__item{
     overflow: hidden;
     &[data-shape="thin"] {
       grid-column: span 5;
-      grid-row: span 7;
+      aspect-ratio: 5/7;
     }
     &[data-shape="square"] {
       grid-column: span 7;
-      grid-row: span 7;
+      //aspect-ratio: 1/1;
     }
     &[data-shape="wide"] {
       grid-column: span 9;
-      grid-row: span 6;
+      //aspect-ratio: 4/3;
     }
     &[data-shape="very-wide"] {
       grid-column: span 10;
-      grid-row: span 6;
+      //aspect-ratio: 2/1;
     }
     @include breakpoint(lg){
       &[data-shape="thin"] {
         grid-column: span 3;
-        grid-row: span 7;
       }
       &[data-shape="square"] {
         grid-column: span 5;
-        grid-row: span 5;
       }
       &[data-shape="wide"] {
         grid-column: span 7;
-        grid-row: span 4;
       }
       &[data-shape="very-wide"] {
         grid-column: span 10;
-        grid-row: span 3;
       }
     }
 

@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         switch (shape) {
             case 'thin':
-                span = 3;
+                span = 4;
                 break;
             case 'square':
-                span = 5;
+                span = 6;
                 break;
             case 'wide':
-                span = 7;
+                span = 8;
                 break;
             case 'very-wide':
                 span = 10;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
         }
         if(isMobile)
-            span = Math.min(span+2, 10);
+            span = Math.min(span+1, 10);
 
         let startColumn = Math.floor(Math.random() * (totalColumns - span + 1)) + 1;
         // If we land on the same column as 1 item before, then try to move
@@ -52,18 +52,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function() {
     const hideOnScroll = document.querySelectorAll('.hideOnScroll');
-    const header = document.querySelector('.header');
-    const headerHeight = header.offsetHeight;
-    const headerBottom = header.offsetTop + headerHeight/2;
     let lastScroll = 0;
     let currentScroll;
 
     window.addEventListener('scroll', function() {
     currentScroll = window.scrollY;
 
-    if (currentScroll > headerBottom) {
+    if (currentScroll > 5) {
         // Scroll down animation
-         gsap.to(hideOnScroll, {duration: 0.1, y: -20, opacity: 0, pointerEvents: "none", ease: "none"});
+         gsap.to(hideOnScroll, {duration: 0.1, y: -20, skewX,  opacity: 0, pointerEvents: "none", ease: "none"});
     } else {
         // Scroll up animation
         gsap.to(hideOnScroll, {duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: "none"});

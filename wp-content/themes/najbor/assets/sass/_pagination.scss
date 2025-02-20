@@ -24,25 +24,7 @@
   display: block;
   color: $black;
   position: relative;
-  &:after{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: $black;
-    transform: scaleX(0);
-    transition: 0.15s transform ease-in-out;
-    transform-origin: center;
-  }
-}
-.pagenavi a:hover {
-  &:after{
-    transform: scaleX(1);
-  }
-}
-.pagenavi span.pages {
+  @include underlineAnimation;
 }
 .pagenavi span.current {
   font-weight:bold;
@@ -56,10 +38,4 @@
     height: 2px;
     background-color: $black;
   }
-}
-.pagenavi span.expand {
-}
-.pagenavi .first, .pagenavi .last {
-}
-.pagenavi .single_page {
 }

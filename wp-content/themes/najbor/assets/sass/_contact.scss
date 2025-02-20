@@ -30,6 +30,22 @@ $halfBlack: transparentize($black, 0.5);
     }
   }
 }
+body:has(#contact-page){
+  main{
+    height: 100%;
+    min-height: 80vh;
+  }
+  .contact{
+    height: 100%;
+    padding-top: 0;
+    &__decoration{
+      display: block !important;
+    }
+  }
+  footer{
+    padding-bottom: 0;
+  }
+}
 .form{
   display: flex;
   flex-direction: column;
