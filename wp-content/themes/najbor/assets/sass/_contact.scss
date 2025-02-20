@@ -13,6 +13,7 @@ $halfBlack: transparentize($black, 0.5);
 
   @include breakpoint(lg){
     flex-direction: row;
+    padding-top: 0;
     height: clamp(50vh, 700px, 100vh);
   }
 
