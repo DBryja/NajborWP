@@ -11,9 +11,10 @@ $for_sale = ml_for_sale();
 				$image = get_field("Obraz", $ID);
 				$forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang]);
 				?>
-				<div class="prace-archive__row" id="<?php echo $ID; ?>">
+				<div class="prace-archive__row">
+                    <span class="prace-archive__anchor" id="post-<?php the_ID(); ?>">&nbsp;</span>
 					<article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
-						<a id="post-<?php the_ID(); ?>" href="<?php the_permalink();?>" <?php echo $forSaleAttrib?>>
+						<a href="<?php the_permalink();?>" <?php echo $forSaleAttrib?>>
 							<picture>
 								<source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
 								<source srcset="<?php echo $image["url"]?>" type="image/jpeg">
