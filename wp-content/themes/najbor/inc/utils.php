@@ -46,36 +46,40 @@ function get_value_with_fallback( $acf, $field, $lang) {
 	}
 	return '';
 }
-function get_katprace_categories_with_translations() {
-	$categories = get_terms([
-		'taxonomy' => 'katprace',
-		'hide_empty' => true,
-	]);
+function get_katprace_categories_with_translations($desc_required = false) {
+    $categories = get_terms([
+        'taxonomy' => 'katprace',
+        'hide_empty' => true,
+    ]);
 
-	$categories_with_translations = [];
-	if (!is_wp_error($categories)) {
-		foreach ($categories as $category) {
-			$category_id = $category->term_id;
-			$name_fr = get_field('fr', 'katprace_' . $category_id);
-			$name_en = get_field('en', 'katprace_' . $category_id);
-			$thumbnail = get_field('thumbnail', 'katprace_' . $category_id);
-			$order = get_field('order', 'katprace_' . $category_id);
+    $categories_with_translations = [];
+    if (!is_wp_error($categories)) {
+        foreach ($categories as $category) {
+            $category_id = $category->term_id;
+            $name_fr = get_field('fr', 'katprace_' . $category_id);
+            $name_en = get_field('en', 'katprace_' . $category_id);
+            $thumbnail = get_field('thumbnail', 'katprace_' . $category_id);
+            $order = get_field('order', 'katprace_' . $category_id);
+            $desc = get_field('desc', 'katprace_' . $category_id);
 
-			$categories_with_translations[] = [
-				'slug' => $category->slug,
-				'name_pl' => $category->name,
-				'name_fr' => $name_fr,
-				'name_en' => $name_en,
-				'thumbnail_url' => $thumbnail,
-				'order' => $order,
-			];
-		}
-	}
-	usort($categories_with_translations, function($a, $b) {
-		return $a['order'] <=> $b['order'];
-	});
+            if ($desc_required && empty($desc))
+                continue;
 
-	return $categories_with_translations;
+            $categories_with_translations[] = [
+                'slug' => $category->slug,
+                'name_pl' => $category->name,
+                'name_fr' => $name_fr,
+                'name_en' => $name_en,
+                'thumbnail_url' => $thumbnail,
+                'order' => $order,
+            ];
+        }
+    }
+    usort($categories_with_translations, function($a, $b) {
+        return $a['order'] <=> $b['order'];
+    });
+
+    return $categories_with_translations;
 }
 function get_katprace_object($lang = 'pl'){
 	$queried_object = get_queried_object();

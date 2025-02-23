@@ -10,27 +10,16 @@ $szpiegPath: "../images/szpieg.png";
 }
 @mixin szpieg {
   position: relative;
-  --rotate: -12deg;
+  --rotate: 2deg;
   --x: -20%;
-  //&::before {
-  //  content: "";
-  //  display: block;
-  //  width: 15%;
-  //  height: 25%;
-  //  position: absolute;
-  //  bottom: 12%;
-  //  right: 5%;
-  //  background-color: $white;
-  //  z-index: -1;
-  //}
   &::after {
     content: "";
     display: block;
-    width: 18.2%;
+    width: 28.2%;
     aspect-ratio: 10/21;
     position: absolute;
-    top: 55%;
-    left: 92%;
+    top: 43%;
+    left: 88.8%;
     rotate: var(--rotate);
     z-index: -2;
     background-image: url($szpiegPath);
@@ -55,9 +44,12 @@ $szpiegPath: "../images/szpieg.png";
   }
 }
 .anim-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: var(--logo-width);
   aspect-ratio: 1/1;
-  @include absolute-center;
   &.exit {
     left: 32px;
     top: 32px;
@@ -76,13 +68,13 @@ $szpiegPath: "../images/szpieg.png";
     }
   }
   .autobus {
-    width: 100%;
+    width: 120%;
     top: 85%;
     left: -8%;
     rotate: 2deg;
   }
   .samolot {
-    width: 90%;
+    width: 115%;
     top: 18%;
     left: 90%;
     rotate: 35deg;

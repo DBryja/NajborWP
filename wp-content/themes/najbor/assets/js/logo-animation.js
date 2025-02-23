@@ -50,7 +50,7 @@ function runGSAP(){
             ease: ease
         });
         gsap.to("#logo", {
-            "--rotate": "-12deg",
+            "--rotate": "2deg",
             "--x": "-20%",
             duration: duration,
             ease: ease
