@@ -17,7 +17,7 @@ $for_sale = ml_for_sale();
 						<a href="<?php the_permalink();?>" <?php echo $forSaleAttrib?>>
 							<picture>
 								<source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
-								<source srcset="<?php echo $image["url"]?>" type="image/jpeg">
+								<source srcset="<?php echo $image["url"]?>">
 								<img src="<?php echo $image["url"]?>" loading="lazy" alt="<?php echo $image["alt"]?>">
 							</picture>
 						</a>

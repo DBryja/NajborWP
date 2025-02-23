@@ -59,7 +59,7 @@ function get_value_with_fallback( $acf, $field, $lang) {
         <div class="single__image">
             <picture>
                 <source srcset="<?php echo $acf["obraz"]["url"];?>.webp" type="image/webp">
-                <source srcset="<?php echo $acf["obraz"]["url"]; ?>" type="image/jpeg">
+                <source srcset="<?php echo $acf["obraz"]["url"]; ?>">
                 <img class="img-fluid" src="<?php echo $acf["obraz"]["url"]; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
             </picture>
         </div>

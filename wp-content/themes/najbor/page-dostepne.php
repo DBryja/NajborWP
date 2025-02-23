@@ -37,7 +37,7 @@ $p1->fr = get_field('p1_fr');
                         <a href="<?php the_permalink(); ?>" <?php echo $forSaleAttrib?>>
                             <picture>
                                 <source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
-                                <source srcset="<?php echo $image["url"]?>" type="image/jpeg">
+                                <source srcset="<?php echo $image["url"]?>">
                                 <img loading="lazy" src="<?php echo $image["url"]?>" alt="<?php echo $image["alt"]?>">
                             </picture>
                         </a>

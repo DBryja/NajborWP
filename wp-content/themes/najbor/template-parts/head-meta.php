@@ -9,19 +9,19 @@
     $term_id = $ID = 0;
 
     if (is_front_page() || is_home()) {
-	    $title =  $pageLabels["home"][$lang]." | Najbor";
+	    $title =  ml_meta_title()[$lang];
     }
     else if (is_page('kontakt')){
-        $title =  $pageLabels["kontakt"][$lang]." | Najbor";
+        $title =  $pageLabels["kontakt"][$lang]." | Wiktor Najbor";
     }
     else if(is_page('na-sprzedaz')){
-        $title = $pageLabels["na_sprzedaz"][$lang]." | Najbor";
+        $title = $pageLabels["na_sprzedaz"][$lang]." | Wiktor Najbor";
     }
     elseif (is_post_type_archive('prace')) {
-		$title = $pageLabels["prace"][$lang]." | Najbor";
+		$title = $pageLabels["prace"][$lang]." | Wiktor Najbor";
 	}
     else if(is_404()){
-        $title = "404 | Najbor";
+        $title = "404 | Wiktor Najbor";
     }
     else if (is_tax('katprace')) {
         $category = get_katprace_object($lang);
@@ -29,7 +29,7 @@
         $img = get_field('thumbnail', 'katprace_' . $term_id);
 		$img_width = 1200;
 		$img_height= 630;
-        $title = $OGtitle = $category["name"]." | Najbor";
+        $title = $OGtitle = $category["name"]." | Wiktor Najbor";
 	}
     else if (is_singular("prace")){
 		$current_post = get_queried_object();
@@ -38,7 +38,7 @@
         $img = $acf["obraz"]["url"];
         $img_width = $acf["obraz"]["width"];
         $img_height = $acf["obraz"]["height"];
-        $title = $OGtitle = get_value_with_fallback($acf, "tytul", $lang)." | Najbor";
+        $title = $OGtitle = get_value_with_fallback($acf, "tytul", $lang)." | Wiktor Najbor";
         $desc = strip_tags(get_value_with_fallback($acf, "opis", $lang));
     }
 ?>

@@ -97,16 +97,16 @@ function ml_alerts(){
 
 function ml_meta_description(){
 	return array(
-		"pl"=>"Odkryj fascynujący świat sztuki Wiktora Najbora. Zobacz jego wyjątkowe obrazy i projekty artystyczne, które łączą pasję z unikalnym stylem. Przeglądaj galerię dzieł, poznaj artystę i zanurz się w kreatywnym świecie Wiktora Najbora.",
-		"en"=>"Discover the fascinating world of Wiktor Najbor's art. Explore his unique paintings and artistic projects that blend passion with a distinctive style. Browse the gallery of works, get to know the artist, and immerse yourself in Wiktor Najbor's creative world.",
-		"fr"=>"Découvrez le monde fascinant de l'art de Wiktor Najbor. Explorez ses peintures uniques et ses projets artistiques qui allient passion et style distinctif. Parcourez la galerie des œuvres, faites connaissance avec l'artiste et plongez dans le monde créatif de Wiktor Najbor."
+		"pl"=>"Tworzy nasycone kolorem obrazy i rysunki o tematyce balansującej na granicy purnonsensu. Jego malarstwo przenosi widza do magicznego świata ciekawych historii ukazanych z wysublimowanym poczuciem humoru.",
+		"en"=>"He creates color-saturated paintings and drawings that balance on the edge of absurdity. His art transports the viewer to a magical world of intriguing stories, presented with a refined sense of humor.",
+		"fr"=>"Il crée des peintures et des dessins aux couleurs éclatantes, oscillant à la frontière de l’absurde. Son art transporte le spectateur dans un monde magique d’histoires fascinantes, révélées avec un sens de l’humour raffiné."
 	);
 }
 function ml_meta_title(){
 	return array(
-		"pl"=>"Wiktor Najbor – Twórczość, która przenosi w inny wymiar.",
-		"en"=>"Wiktor Najbor – Art that transcends dimensions.",
-		"fr"=>"Wiktor Najbor – L'art qui transcende les dimensions."
+		"pl"=>"Wiktor Najbor - współczesny polski artysta malarz.",
+		"en"=>"Wiktor Najbor - a contemporary Polish painter.",
+		"fr"=>"Wiktor Najbor - un peintre polonais contemporain."
 	);
 }
 

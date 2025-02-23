@@ -38,7 +38,7 @@ if(isset($referrer)){
         <div class="single__image cursor--click" <?php echo $forSaleAttrib?> >
             <picture>
                 <source srcset="<?php echo $url;?>.webp" type="image/webp">
-                <source srcset="<?php echo $url; ?>" type="image/jpeg">
+                <source srcset="<?php echo $url; ?>">
                 <img class="img-fluid" src="<?php echo $url; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
             </picture>
         </div>

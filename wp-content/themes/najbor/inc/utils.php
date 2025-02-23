@@ -159,6 +159,39 @@ function get_image_shape($width, $height) {
 	}
 }
 
+function format_json_array($data, $keyLang, $keyValue) {
+    $output = [];
+    foreach ($data as $lang => $content) {
+        $output[] = [
+            $keyLang => $lang,
+            $keyValue => $content
+        ];
+    }
+    return json_encode($output, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+function get_breadcrumb_items($menu_items, $max) {
+    $items = [];
+    $position = 1;
+
+    foreach ($menu_items as $key => $names) {
+        $items[] = [
+            "@type" => "ListItem",
+            "position" => $position,
+            "name" => array_map(function($lang, $value) {
+                return [
+                    "@language" => $lang,
+                    "@value" => $value
+                ];
+            }, array_keys($names), $names),
+            "item" => WP_HOME . "/" . $key
+        ];
+        $position++;
+        if ($position > $max) break;
+    }
+
+    return json_encode($items, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+
 function get_forSale_attrib($ID, $translation, $value='0'){
         if (
             $value == '1'
