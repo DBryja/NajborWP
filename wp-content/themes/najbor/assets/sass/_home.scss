@@ -9,6 +9,18 @@ main:has(.home__hero){
   @include breakpoint(md) {
     margin-top: 10rem;
   }
+  @include breakpoint(lg) {
+    margin-top: 8rem;
+  }
+}
+body:has(.home__hero){
+  footer{
+      position: relative;
+      z-index: 2;
+  }
+  header{
+    background-color: $white;
+  }
 }
 
 .home__hero{
@@ -37,6 +49,7 @@ main:has(.home__hero){
   }
   &__image{
     margin: 2rem 0 6rem 0;
+    max-width: 500px;
     width: 100%;
     position: relative;
     img{
@@ -47,7 +60,7 @@ main:has(.home__hero){
       width: 100%;
       margin: 0 auto;
       box-shadow: 0 0 10px 4px rgba($black, 0.15);
-      z-index: 1;
+      z-index: 2;
       position: relative;
     }
   }
@@ -70,7 +83,7 @@ main:has(.home__hero){
     top: 100%;
     left: 50%;
     transform: translate(-50%, -10%);
-    z-index: -1;
+    z-index: 1;
   }
 
   width: 100%;
@@ -92,7 +105,44 @@ main:has(.home__hero){
     }
     &__image{
       margin: 0 auto 8rem auto;
-      max-width: 500px;
+    }
+  }
+  @include breakpoint(lg){
+    position: relative;
+    &__title{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8rem;
+    }
+    &__desc{
+      position: fixed;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      max-width: 600px;
+    }
+    &__image{
+      max-width: 80vw;
+      max-height: 70vh;
+      height: 100%;
+      margin-top: 50vh;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      &:before{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200vw;
+        height: 100vh;
+        transform: translateX(-50%);
+        z-index: 0;
+        background-color: $white;
+      }
     }
   }
 }
@@ -159,5 +209,15 @@ main:has(.home__hero){
     &__content p {
       font-size: 1.5rem;
     }
+  }
+  @include breakpoint(lg){
+    position: relative;
+    z-index: 1;
+    background-color: $white;
+    max-width: 100%;
+    transform: none;
+    grid-template-areas: "decor decor" "image content";
+    justify-content: space-between;
+    grid-template-columns: 600px 600px;
   }
 }
