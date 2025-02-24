@@ -174,25 +174,39 @@ function ml_home_decor(){
 function ml_home_bio(){
 	return array(
 		"pl" => [
-			"Tylko wtedy jeszcze o tym nie wiedziałem.Jak tylko stanąłem na nogi systematycznie i konsekwentnie znaczyłem swoją obecność na ścianach mieszkania i w książkach moich Rodziców. Gdy ściany zostały odświeżone przez najętego malarza pokojowego, a cenne książki wyniesione poza mój zasięg. Dostałem papier na którym mogłem działać bez żadnych ograniczeń, co czynię do dzisiaj.",
-			"Miałem być konstruktorem maszyn, pilotem, architektem, nauczycielem geografii....  Zostałem MALARZEM. Malowałem różne obrazy, aż pewnego dnia zdobyłem tę wiedzę, że jestem z PuCo. Jestem z krainy purnonsenu, a moje obrazy to nic innego jak utrwalanie historii z mojego świata."
+			"Tylko wtedy jeszcze o tym nie wiedziałem. Jak tylko stanąłem na nogi systematycznie i konsekwentnie znaczyłem swoją obecność na ścianach mieszkania i w książkach moich Rodziców. Gdy ściany zostały odświeżone przez najętego malarza pokojowego, a cenne książki wyniesione poza mój zasięg. Dostałem papier na którym mogłem działać bez żadnych ograniczeń, co czynię do dzisiaj.",
+			"Miałem być konstruktorem maszyn, pilotem, architektem, nauczycielem geografii.... Zostałem <b>MALARZEM</b>. Malowałem różne obrazy, aż pewnego dnia zdobyłem tę wiedzę, że jestem z <b>PuCo</b>. Jestem z krainy purnonsenu, a moje obrazy to nic innego jak utrwalanie historii z mojego świata."
 		],
 		"en" => [
 			"I just didn’t know it at the time. As soon as I could stand on my own feet, I systematically and consistently marked my presence on the walls of our home and in my parents’ books. When the walls were refreshed by a hired painter and the valuable books were moved out of my reach, I was given paper on which I could create without limitations—something I continue to do to this day.",
-			"I was supposed to be a machine constructor, a pilot, an architect, a geography teacher... I became a PAINTER. I painted various pictures until one day I gained the knowledge that I am from PuCO. I am from the land of pure nonsense, and my paintings are nothing more than the preservation of stories from my world."
+			"I was supposed to be a machine constructor, a pilot, an architect, a geography teacher... I became a <b>PAINTER</b>. I painted various pictures until one day I gained the knowledge that I am from <b>PuCo</b>. I am from the land of pure nonsense, and my paintings are nothing more than the preservation of stories from my world."
 		],
 		"fr" => [
 			"Je ne le savais tout simplement pas à l’époque. Dès que j’ai pu me tenir sur mes jambes, j’ai systématiquement et consciemment marqué ma présence sur les murs de la maison et dans les livres de mes parents. Lorsque les murs ont été rafraîchis par un peintre engagé et que les livres précieux ont été placés hors de ma portée, on m’a donné du papier sur lequel je pouvais créer sans aucune limite—et c’est ce que je fais encore aujourd’hui.",
-			"Je devais être constructeur de machines, pilote, architecte, professeur de géographie... Je suis devenu PEINTRE. J’ai peint toutes sortes de tableaux, jusqu’au jour où j’ai compris que je viens de PuCO. Je viens du pays du pur non-sens, et mes peintures ne sont rien d’autre que la préservation des histoires de mon monde."
+			"Je devais être constructeur de machines, pilote, architecte, professeur de géographie... Je suis devenu <b>PEINTRE</b>. J’ai peint toutes sortes de tableaux, jusqu’au jour où j’ai compris que je viens de <b>PuCo</b>. Je viens du pays du pur non-sens, et mes peintures ne sont rien d’autre que la préservation des histoires de mon monde."
 		]
 	);
 }
 function ml_home_desc(){
 	return array(
-		"pl" => "malarz i artysta, który tworzy niezwykłe obrazy balansujące na granicy purnonsensu. Jego prace przenoszą widza do unikalnego uniwersum ze stolicą w PuCO – świata tętniącego życiem, emocjami i relacjami. Każde płótno to fragment tej rzeczywistości, pełen symboliki i ukrytych znaczeń.",
-		"en" => "A painter and artist who creates extraordinary paintings balancing on the edge of pure nonsense. His works transport the viewer to a unique universe with its capital in PuCO—a world brimming with life, emotions, and relationships. Each canvas is a fragment of this reality, full of symbolism and hidden meanings.",
-		"fr" => "Un peintre et artiste qui crée des œuvres extraordinaires, oscillant à la frontière du pur non-sens. Ses créations transportent le spectateur dans un univers unique, dont la capitale est PuCO—un monde vibrant de vie, d’émotions et de relations. Chaque toile est un fragment de cette réalité, chargé de symboles et de significations cachées."
+		"pl" => [
+			"Malarz i artysta, który tworzy niezwykłe obrazy balansujące na granicy purnonsensu.",
+			"Jego prace przenoszą widza do unikalnego uniwersum ze stolicą w PuCO - świata tętniącego życiem, emocjami i relacjami.",
+			"Każde płótno to fragment tej rzeczywistości, pełen symboliki i ukrytych znaczeń."
+		],
+		"en" => [
+			"A painter and artist who creates extraordinary paintings balancing on the edge of pure nonsense.",
+			"His works transport the viewer to a unique universe with its capital in PuCO—a world brimming with life, emotions, and relationships.",
+			"Each canvas is a fragment of this reality, full of symbolism and hidden meanings."
+		],
+		"fr" => [
+			"Un peintre et artiste qui crée des œuvres extraordinaires, oscillant à la frontière du pur non-sens.",
+			"Ses créations transportent le spectateur dans un univers unique, dont la capitale est PuCO—un monde vibrant de vie, d’émotions et de relations.",
+			"Chaque toile est un fragment de cette réalité, chargé de symboles et de significations cachées."
+		]
 	);
 }
+
 ?>
 
+<!---->

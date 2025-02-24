@@ -112,7 +112,7 @@ $szpiegPath: "../images/szpieg.png";
     pointer-events: auto;
   }
   @include breakpoint(md){
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 1rem 1rem;
     background-color: transparent;
     box-shadow: none;
   }
