@@ -5,6 +5,8 @@ $labels = ml_single_labels();
 $for_sale = ml_for_sale();
 $ask_for_price = ml_ask_for_price();
 $back_to_search = ml_back_to_search();
+$url = '';
+$alt = '';
 ?>
 
 <?php while ( have_posts() ) : the_post();
@@ -12,6 +14,7 @@ $ID = get_the_ID() ? get_the_ID() : the_ID();
 $acf = get_praca_data( $ID );
 $orientation = $acf["obraz"]["width"] > $acf["obraz"]["height"]*1.3 ? "landscape" : "portrait";
 $url = $acf["obraz"]["url"];
+$alt = $acf["obraz"]["alt"];
 $na_sprzedaz = get_post_meta($ID, 'na_sprzedaz', true);
 $forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang], $na_sprzedaz);
 
@@ -35,11 +38,11 @@ if(isset($referrer)){
 
 <div class="single <?php echo $orientation?>">
     <article id="post-<?php echo $ID; ?>" <?php post_class(); ?> data-title="<?php echo get_value_with_fallback($acf, "tytul", $lang)?>">
-        <div class="single__image cursor--click" <?php echo $forSaleAttrib?> >
+        <div class="single__image cursor--click --fullscreen" <?php echo $forSaleAttrib?> >
             <picture>
                 <source srcset="<?php echo $url;?>.webp" type="image/webp">
                 <source srcset="<?php echo $url; ?>">
-                <img class="img-fluid" src="<?php echo $url; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
+                <img class="img-fluid" src="<?php echo $url; ?>" alt="<?php echo $alt?>">
             </picture>
         </div>
         <div class="single__details">
@@ -75,39 +78,14 @@ if(isset($referrer)){
         <?php echo $back_to_search[$lang]?>
     </a>
 </div>
-<div class="fullscreen">
-    <div class="fullscreen__close">&times;</div>
-    <div class="fullscreen__image-container">
-        <img class="fullscreen__image" src="<?php echo $url; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
-    </div>
-</div>
+<?php
+    set_query_var('fullscreen_img_url', $url);
+    set_query_var('fullscreen_img_alt', $alt);
+    get_template_part('template-parts/content-fullscreen-image');
+?>
 
 <script>
-    const fullscreen = document.querySelector('.fullscreen');
-    const closeButton = document.querySelector('.fullscreen__close');
-    const singleImage = document.querySelector('.single__image');
     const buyButton = document.querySelector(".buy-button");
-    singleImage.addEventListener('click', function() {
-        fullscreen.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        fullscreen.classList.add("active");
-    });
-    closeButton.addEventListener('click', closeFullscreen);
-    fullscreen.addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeFullscreen();
-        }
-    });
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeFullscreen();
-        }
-    });
-    function closeFullscreen() {
-        fullscreen.classList.remove("active");
-        fullscreen.style.display = 'none';
-        document.body.style.overflow = '';
-    }
     if (buyButton){
        buyButton.addEventListener("click", ()=>{
            const subjectInput = document.querySelector("input#subject");
@@ -117,6 +95,5 @@ if(isset($referrer)){
            }
        })
     }
-
 </script>
 <?php get_footer(); ?>

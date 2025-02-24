@@ -158,9 +158,9 @@ function ml_menuItems(){
 
 function ml_home_explore(){
 	return array(
-		"pl" => "Odkryj",
-		"en" => "Explore",
-		"fr" => "Explore"
+		"pl" => "Zobacz więcej",
+		"en" => "See More",
+		"fr" => "Voir plus"
 	);
 }
 function ml_home_decor(){

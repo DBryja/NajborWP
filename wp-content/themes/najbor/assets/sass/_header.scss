@@ -36,10 +36,10 @@ $szpiegPath: "../images/szpieg.png";
     --exit-width: 92px;
   }
   @include breakpoint(lg){
-    --exit-width: 128px;
+    --exit-width: 96px;
   }
   @include breakpoint(xl){
-    --exit-width: 128px;
+    --exit-width: 96px;
     --logo-width: 30%;
   }
 }
