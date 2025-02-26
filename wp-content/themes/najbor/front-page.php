@@ -1,6 +1,7 @@
 <?php
     get_header();
     $lang = get_site_language();
+    $home = get_home_url_with_prefix($lang);
     $desc = ml_home_desc()[$lang];
     $cta = ml_home_explore()[$lang];
     $decor = ml_home_decor()[$lang];
@@ -49,11 +50,21 @@
         ?>
     </div>
 </section>
-<section>
+<section class="home__categories">
+    <div class="home__categories__wrapper">
         <?php
-            foreach ($categories as $cat)
-                echo "<span>".$cat["name_pl"]."</span>";
+        foreach ($categories as $cat) {
+            $desc = esc_attr($cat["desc_" . $lang]);
+            $url = esc_url($home . '/prace/' . $cat['slug']);
+            $name = esc_html($cat["name_" . $lang]);
+
+            echo '<a href="' . $url . '" class="home__categories__item">
+            <h3>' . $name . '</h3>
+            <span>' . $desc . '</span>
+          </a>';
+        }
         ?>
+    </div>
 </section>
 <?php
 set_query_var('fullscreen_img_url', $image_url);

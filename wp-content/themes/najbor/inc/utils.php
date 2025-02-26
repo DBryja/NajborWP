@@ -62,19 +62,25 @@ function get_katprace_categories_with_translations($desc_required = false) {
             $order = get_field('order', 'katprace_' . $category_id);
             $desc = get_field('desc', 'katprace_' . $category_id);
 
-            if ($desc_required && empty($desc))
-                continue;
-
-            $categories_with_translations[] = [
+            $category_data = [
                 'slug' => $category->slug,
                 'name_pl' => $category->name,
                 'name_fr' => $name_fr,
                 'name_en' => $name_en,
                 'thumbnail_url' => $thumbnail,
-                'order' => $order,
+                'order' => $order ?: 9999,
             ];
+
+            if ($desc_required && !empty($desc)) {
+                $category_data['desc_pl'] = $desc;
+                $category_data['desc_fr'] = get_field('desc_fr', 'katprace_' . $category_id);
+                $category_data['desc_en'] = get_field('desc_en', 'katprace_' . $category_id);
+            }
+
+            $categories_with_translations[] = $category_data;
         }
     }
+
     usort($categories_with_translations, function($a, $b) {
         return $a['order'] <=> $b['order'];
     });
