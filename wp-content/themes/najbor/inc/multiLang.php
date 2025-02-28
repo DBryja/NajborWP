@@ -174,16 +174,16 @@ function ml_home_decor(){
 function ml_home_bio(){
 	return array(
 		"pl" => [
-			"Tylko wtedy jeszcze o tym nie wiedziałem. Jak tylko stanąłem na nogi systematycznie i konsekwentnie znaczyłem swoją obecność na ścianach mieszkania i w książkach moich Rodziców. Gdy ściany zostały odświeżone przez najętego malarza pokojowego, a cenne książki wyniesione poza mój zasięg. Dostałem papier na którym mogłem działać bez żadnych ograniczeń, co czynię do dzisiaj.",
-			"Miałem być konstruktorem maszyn, pilotem, architektem, nauczycielem geografii.... Zostałem <b>MALARZEM</b>. Malowałem różne obrazy, aż pewnego dnia zdobyłem tę wiedzę, że jestem z <b>PuCo</b>. Jestem z krainy purnonsenu, a moje obrazy to nic innego jak utrwalanie historii z mojego świata."
+			"Tylko wtedy jeszcze o tym nie wiedziałem.\n Jak tylko stanąłem na nogi systematycznie i konsekwentnie znaczyłem swoją obecność na ścianach mieszkania i w książkach moich Rodziców.\n Gdy ściany zostały odświeżone przez najętego malarza pokojowego, a cenne książki wyniesione poza mój zasięg, dostałem papier na którym mogłem działać bez żadnych ograniczeń, co czynię do dzisiaj.",
+			"Miałem być konstruktorem maszyn, pilotem, architektem, nauczycielem geografii.... Zostałem <b>MALARZEM</b>. Malowałem różne obrazy, aż pewnego dnia zdobyłem tę wiedzę, że jestem z <b>PuCO</b>. Jestem z krainy purnonsenu, a moje obrazy to nic innego jak utrwalanie historii z mojego świata."
 		],
 		"en" => [
-			"I just didn’t know it at the time. As soon as I could stand on my own feet, I systematically and consistently marked my presence on the walls of our home and in my parents’ books. When the walls were refreshed by a hired painter and the valuable books were moved out of my reach, I was given paper on which I could create without limitations—something I continue to do to this day.",
-			"I was supposed to be a machine constructor, a pilot, an architect, a geography teacher... I became a <b>PAINTER</b>. I painted various pictures until one day I gained the knowledge that I am from <b>PuCo</b>. I am from the land of pure nonsense, and my paintings are nothing more than the preservation of stories from my world."
+			"I just didn’t know it at the time.\n As soon as I could stand on my own feet, I systematically and consistently marked my presence on the walls of our home and in my parents’ books.\n When the walls were refreshed by a hired painter and the valuable books were moved out of my reach, I was given paper on which I could create without limitations—something I continue to do to this day.",
+			"I was supposed to be a machine constructor, a pilot, an architect, a geography teacher... I became a <b>PAINTER</b>. I painted various pictures until one day I gained the knowledge that I am from <b>PuCO</b>. I am from the land of pure nonsense, and my paintings are nothing more than the preservation of stories from my world."
 		],
 		"fr" => [
-			"Je ne le savais tout simplement pas à l’époque. Dès que j’ai pu me tenir sur mes jambes, j’ai systématiquement et consciemment marqué ma présence sur les murs de la maison et dans les livres de mes parents. Lorsque les murs ont été rafraîchis par un peintre engagé et que les livres précieux ont été placés hors de ma portée, on m’a donné du papier sur lequel je pouvais créer sans aucune limite—et c’est ce que je fais encore aujourd’hui.",
-			"Je devais être constructeur de machines, pilote, architecte, professeur de géographie... Je suis devenu <b>PEINTRE</b>. J’ai peint toutes sortes de tableaux, jusqu’au jour où j’ai compris que je viens de <b>PuCo</b>. Je viens du pays du pur non-sens, et mes peintures ne sont rien d’autre que la préservation des histoires de mon monde."
+			"Je ne le savais tout simplement pas à l’époque.\n Dès que j’ai pu me tenir sur mes jambes, j’ai systématiquement et consciemment marqué ma présence sur les murs de la maison et dans les livres de mes parents.\n Lorsque les murs ont été rafraîchis par un peintre engagé et que les livres précieux ont été placés hors de ma portée, on m’a donné du papier sur lequel je pouvais créer sans aucune limite—et c’est ce que je fais encore aujourd’hui.",
+			"Je devais être constructeur de machines, pilote, architecte, professeur de géographie... Je suis devenu <b>PEINTRE</b>. J’ai peint toutes sortes de tableaux, jusqu’au jour où j’ai compris que je viens de <b>PuCO</b>. Je viens du pays du pur non-sens, et mes peintures ne sont rien d’autre que la préservation des histoires de mon monde."
 		]
 	);
 }
@@ -206,6 +206,15 @@ function ml_home_desc(){
 		]
 	);
 }
+
+function ml_home_series(){
+    return array(
+            "pl" => "cykle obrazów",
+            "en" => "series of paintings",
+            "fr" => "série de peintures"
+    );
+}
+
 
 ?>
 

@@ -6,6 +6,7 @@
     $cta = ml_home_explore()[$lang];
     $decor = ml_home_decor()[$lang];
     $bio = ml_home_bio()[$lang];
+    $categories_heading = ml_home_series()[$lang];
     $categories = get_katprace_categories_with_translations(true);
     $image_url = get_template_directory_uri().'/assets/images/hp-lg.jpg';
 ?>
@@ -36,7 +37,7 @@
 </section>
 <section class="home__bio">
     <h3 class="home__bio__decor">
-        <?php echo "<span>".$decor."</span><span>".$decor."</span>" ?>
+        <?php echo "<span class='section-heading'>".$decor."</span><span class='section-heading'>".$decor."</span>" ?>
     </h3>
     <div class="home__bio__image">
         <picture>
@@ -51,6 +52,9 @@
     </div>
 </section>
 <section class="home__categories">
+    <h3 class="home__categories__heading section-heading">
+        <?php echo $categories_heading ?>
+    </h3>
     <div class="home__categories__wrapper">
         <?php
         foreach ($categories as $cat) {

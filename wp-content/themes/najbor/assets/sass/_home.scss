@@ -36,11 +36,18 @@ body:has(.home__hero){
   }
   &__desc{
     position: relative;
-    margin-top: 2rem;
+    margin: 2rem auto 0 auto;
     font-size: 1.2rem;
     text-align: center;
     text-wrap: balance;
     line-height: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 0.5rem;
+    span{
+      display: block;
+    }
     span:last-of-type{
       visibility: hidden;
       display: block;
@@ -48,6 +55,7 @@ body:has(.home__hero){
       width: 1px;
       position: absolute;
     }
+    max-width: 450px;
   }
   &__image{
     margin: 2rem auto 6rem auto;
@@ -114,21 +122,23 @@ body:has(.home__hero){
     position: relative;
     &__title{
       position: fixed;
+      top: 7rem;
       left: 50%;
       transform: translateX(-50%);
       font-size: 8rem;
     }
     &__desc{
+      margin: 0 auto;
       position: fixed;
       left: 50%;
-      transform: translate(-50%, 100%);
-      max-width: 600px;
+      transform: translate(-50%, 78%);
+      max-width: 540px;
     }
     &__image{
       box-sizing: content-box;
       max-width: 80vw;
       max-height: 76vh;
-      margin-top: 50vh;
+      margin-top: 366px;
       height: 100%;
       img{
         width: 100%;
@@ -149,8 +159,17 @@ body:has(.home__hero){
       }
     }
   }
+  @include breakpoint(xl){
+    &__image{
+      margin-top: 400px;
+    }
+  }
   @include breakpoint(2xl){
+    &__image{
+      margin-top: 460px;
+    }
     &__desc{
+      transform: translate(-50%, 72%);
       max-width: 700px;
       font-size: 1.4rem;
     }
@@ -176,11 +195,8 @@ body:has(.home__hero){
     width: 100%;
     transform: translateX(-70%);
     span{
-      color: $red;
-      font-size: 3rem;
       display: block;
       width: fit-content;
-      text-wrap: nowrap;
     }
   }
   &__image{
@@ -202,8 +218,8 @@ body:has(.home__hero){
     row-gap: 1rem;
     p{
       font-size: 1.16rem;
+      white-space: pre-line;
       b{
-        @include playfair-display;
         font-style: italic;
         color: $red;
       }
@@ -249,6 +265,11 @@ body:has(.home__hero){
   width: 100%;
   background-color: $white;
   padding: 3rem 0;
+  &__heading{
+    margin: 0 auto 2rem auto;
+    display: block;
+    text-align: center;
+  }
   &__wrapper{
     margin: 0 auto;
     max-width: 650px;
@@ -315,6 +336,10 @@ body:has(.home__hero){
   }
 
   @include breakpoint(md){
+    padding: 4rem 0;
+    &__heading{
+      margin-bottom: 4rem;
+    }
     &__item{
       column-gap: 1.5rem;
       font-size: 4rem;
@@ -338,3 +363,11 @@ body:has(.home__hero){
 }
 //TODO: Anim hover on category
 //TODO: Anim cursor on category hover
+.section-heading{
+  color: $red;
+  font-size: 3rem;
+  text-wrap: nowrap;
+  @include breakpoint(md){
+    font-size: 6rem;
+  }
+}
