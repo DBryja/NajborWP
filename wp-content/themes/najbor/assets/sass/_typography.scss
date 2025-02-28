@@ -1,15 +1,25 @@
 @import "mixins";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital@0;1&family=Playfair+Display:wght@400..900&display=swap');
 @mixin playfair-display {
   font-family: 'Playfair Display', serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
+@mixin pt-serif {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@mixin font-heading{
+  font-family: "Playfair Display", serif;
+}
+@mixin font-body{
+  font-family: "PT Serif", serif;
+}
 
 html{
-  font-family: "Inter", sans-serif;
   font-size: 12px;
   @include breakpoint("lg") {
     font-size: 16px;
@@ -21,9 +31,12 @@ html{
     font-size: 20px;
   }
 }
+body{
+  @include pt-serif;
+}
 
 h1 {
-  @include playfair-display;
+  @include font-heading;
   font-size: 6rem;
   color: black;
   font-weight: 500;
@@ -44,18 +57,18 @@ h2{
   }
 }
 h3{
-  @include playfair-display;
+  @include font-heading;
   font-size: 4rem;
   font-weight: 500;
   text-transform: uppercase;
 }
 h4, .h4{
-  @include playfair-display;
+  @include font-heading;
   font-size: 1.8rem;
   font-weight: 400;
 }
 h6, .h6{
-    @include playfair-display;
+  @include font-heading;
     font-size: 1rem;
     font-weight: 400;
 }
@@ -65,7 +78,7 @@ p{
   line-height: 1.25;
 }
 li{
-  @include playfair-display;
+  @include font-heading;
   font-size: 3rem;
   font-weight: 500;
   color: $white;
@@ -92,7 +105,7 @@ a{
     color: inherit;
   }
   &.back{
-    @include playfair-display;
+    @include font-heading;
     font-size: 2rem;
     text-decoration: underline;
     text-transform: uppercase;
@@ -110,5 +123,5 @@ input, .form-field *{
   font-weight: 400;
   border: none;
   background: none;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI","Helvetica Neue", "Inter", sans-serif;
 }
