@@ -10,8 +10,16 @@
   background-color: $white;
   transform: translateY(0%);
   display: flex;
-    justify-content: center;
+  justify-content: center;
   align-items: center;
+}
+body:has(.home__hero){
+    .transition-box{
+      opacity: 0;
+    }
+}
+.transition-box.ranAnim{
+  opacity: 1 !important;
 }
 .loader {
   width: 35px;
