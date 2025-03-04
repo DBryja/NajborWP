@@ -115,6 +115,7 @@ body:has(.cursor--img:hover){
 body:has(.menu__item.cursor--click:nth-child(even):hover),
 body:has(.categories-list h4:nth-child(even):hover),
 body:has(#language-form .cursor--click:nth-child(even):hover),
+body:has(.home__categories__item:nth-child(even):hover),
 body:has(.prace-archive__row:nth-child(even):hover) {
   @include cursorRotate;
 }

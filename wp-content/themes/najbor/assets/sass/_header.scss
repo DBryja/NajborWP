@@ -72,12 +72,14 @@ $szpiegPath: "../images/szpieg.png";
     top: 85%;
     left: -8%;
     rotate: 2deg;
+    transform: translate(calc(-50% - 100vw), -50%);
   }
   .samolot {
     width: 115%;
     top: 18%;
     left: 90%;
     rotate: 35deg;
+    transform: translate(calc(-50% + 100vw), calc(-50% + 50vh));
   }
   .logo {
     aspect-ratio: 1/1;

@@ -20,8 +20,13 @@ body:has(.home__hero){
       position: relative;
       z-index: 2;
   }
-  header{
-    //background-color: $white;
+  section {
+    opacity: 0;
+  }
+}
+body:has(.home__hero, .ranAnim){
+  section{
+    opacity: 1;
   }
 }
 
@@ -58,11 +63,15 @@ body:has(.home__hero){
     max-width: 450px;
   }
   &__image{
+    --insetBottom: 0;
+    --brightness: 1;
     margin: 2rem auto 6rem auto;
     max-width: 500px;
     width: 100%;
     position: relative;
+    clip-path: inset(0 0 var(--insetBottom) 0);
     img{
+      filter: brightness(var(--brightness));
       display: block;
       height: auto;
       border-radius: 40px;
@@ -126,6 +135,13 @@ body:has(.home__hero){
       left: 50%;
       transform: translateX(-50%);
       font-size: 8rem;
+      overflow: hidden;
+      height: 1.15lh;
+      width: 100%;
+      span{
+        display: inline-block;
+        min-width: 2rem;
+      }
     }
     &__desc{
       margin: 0 auto;

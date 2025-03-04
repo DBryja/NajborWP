@@ -2,6 +2,7 @@
     get_header();
     $lang = get_site_language();
     $home = get_home_url_with_prefix($lang);
+    $name = "Wiktor Najbor";
     $desc = ml_home_desc()[$lang];
     $cta = ml_home_explore()[$lang];
     $decor = ml_home_decor()[$lang];
@@ -11,8 +12,12 @@
     $image_url = get_template_directory_uri().'/assets/images/hp-lg.jpg';
 ?>
 <section class="home__hero">
-    <h1 class="home__hero__title">
-        Wiktor Najbor
+    <h1 class="home__hero__title" aria-label="Wiktor Najbor">
+        <?php
+        foreach (str_split($name) as $letter) {
+            echo "<span>$letter</span>";
+        }
+        ?>
     </h1>
     <h2 class="home__hero__desc">
         <span><?php echo $desc[0] ?></span>

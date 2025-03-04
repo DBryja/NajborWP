@@ -14,18 +14,21 @@ function runGSAP(){
     gsap.set(["body", "html"], {
         "overflow-y": "hidden"
     })
+    gsap.set([".home__hero__title span", ".home__hero__desc span", ".home__hero__image"], {
+        opacity: 0,
+    })
 
     function enterAnim() {
         sizes = {width: window.innerWidth, height: window.innerHeight};
-        gsap.from("#autobus", {
+        gsap.to("#autobus", {
             duration: duration,
-            x: -sizes.width,
+            x: -300,
             ease: ease
         });
-        gsap.from("#samolot", {
+        gsap.to("#samolot", {
             duration: duration,
-            x: sizes.width,
-            y: sizes.height / 2,
+            x: -150,
+            y: -250,
             ease: ease
         });
         gsap.from("#logo", {
@@ -88,6 +91,60 @@ function runGSAP(){
             "overflow-y": "auto",
             delay: duration
         })
+
+        gsap.fromTo(".home__hero__title span", {
+            yPercent: 105,
+            skewX: -15,
+            opacity: 1,
+        }, {
+            delay: duration,
+            yPercent: 0,
+            skewX: 0,
+            opacity: 1,
+            stagger: 0.02,
+        });
+        gsap.fromTo(".home__hero__desc span", {
+            yPercent: 10,
+            opacity: 0,
+        }, {
+            delay: duration + 0.3,
+            yPercent: 0,
+            opacity: 1,
+            stagger: 0.2,
+        });
+        gsap.fromTo(".home__hero__image", {
+            "--insetBottom": "100%",
+            opacity: 1,
+        }, {
+            delay: duration + 0.8,
+            duration: 1,
+            "--insetBottom": "-20%",
+            ease: "power4.in",
+            opacity: 1,
+        });
+        gsap.fromTo(".home__hero__image", {
+            "--brightness": 2.5,
+        }, {
+            delay: duration + 0.8,
+            duration: 1,
+            "--brightness": 1,
+            ease: "linear",
+        });
+        // gsap.fromTo(".home__hero__image", {
+        //     "--insetBottom": "100%",
+        //     "--brightness": 2,
+        //     opacity: 1,
+        // }, {
+        //     delay: duration + 0.8,
+        //     duration: 1,
+        //     "--insetBottom": "-20%",
+        //     "--brightness": 1,
+        //     ease: "power4.in",
+        //     opacity: 1,
+        // })
+
+
+
         setTimeout(() => {
             document.getElementById("anim-wrapper").remove();
         }, duration*1005);

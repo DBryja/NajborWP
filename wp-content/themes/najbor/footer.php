@@ -6,6 +6,15 @@
 <script>
     const transitionBox = document.querySelector('.transition-box');
     let isTransitioning = false;
+    function animHeader(){
+        gsap.from(".header__right .anim", {
+            duration: 0.3,
+            y: "15%",
+            opacity: 0,
+            stagger: 0.2,
+            delay: 0.2
+        });
+    }
     function runTransitionAnimation() {
         gsap.to(transitionBox, {
             y: "-100%",
@@ -13,13 +22,7 @@
             ease: 'power4.inOut',
             onComplete: () => {
                 transitionBox.classList.add('ranAnim');
-                gsap.from(".header__right .anim", {
-                    duration: 0.3,
-                    y: "15%",
-                    opacity: 0,
-                    stagger: 0.2,
-                    delay: 0.2
-                });
+                animHeader();
             }
         });
     }
