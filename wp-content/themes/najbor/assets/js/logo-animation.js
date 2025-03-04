@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", runGSAP);
+function scrollToTop(){
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    // Force reflow to ensure the style change is applied immediately
+    document.documentElement.offsetHeight;
+    window.scrollTo(0, 0);
+    document.documentElement.style.scrollBehavior = originalScrollBehavior;
+}
 function runGSAP(){
     const logoSize = getComputedStyle(document.documentElement).getPropertyValue("--exit-width");
     const headerStyle = getComputedStyle(document.querySelector("header.header"));
@@ -19,16 +27,18 @@ function runGSAP(){
     })
 
     function enterAnim() {
-        sizes = {width: window.innerWidth, height: window.innerHeight};
+        scrollToTop();
+        const sizes = {width: window.innerWidth, height: window.innerHeight};
+        const isMobile = sizes.width < 1024;
         gsap.to("#autobus", {
             duration: duration,
-            x: -300,
+            x: isMobile ? -100 : -350,
             ease: ease
         });
         gsap.to("#samolot", {
             duration: duration,
-            x: -150,
-            y: -250,
+            x: isMobile ? -70 : -150,
+            y: isMobile ? -100 : -250,
             ease: ease
         });
         gsap.from("#logo", {
@@ -40,7 +50,9 @@ function runGSAP(){
     }
 
     function exitAnim() {
-        sizes = {width: window.innerWidth, height: window.innerHeight};
+        const sizes = {width: window.innerWidth, height: window.innerHeight};
+        const isMobile = sizes.width < 1024;
+
         gsap.to("#autobus", {
             duration: duration,
             x: sizes.width * 1.3,
@@ -116,32 +128,31 @@ function runGSAP(){
             "--insetBottom": "100%",
             opacity: 1,
         }, {
-            delay: duration + 0.8,
-            duration: 1,
             "--insetBottom": "-20%",
-            ease: "power4.in",
             opacity: 1,
+            delay: duration + 0.8,
+            duration: isMobile ? 0.6 : 1,
+            ease: "power4.in",
         });
         gsap.fromTo(".home__hero__image", {
             "--brightness": 2.5,
         }, {
             delay: duration + 0.8,
-            duration: 1,
+            duration: isMobile ? 0.6 : 1,
             "--brightness": 1,
             ease: "linear",
         });
-        // gsap.fromTo(".home__hero__image", {
-        //     "--insetBottom": "100%",
-        //     "--brightness": 2,
-        //     opacity: 1,
-        // }, {
-        //     delay: duration + 0.8,
-        //     duration: 1,
-        //     "--insetBottom": "-20%",
-        //     "--brightness": 1,
-        //     ease: "power4.in",
-        //     opacity: 1,
-        // })
+        if(isMobile) {
+            gsap.fromTo(".home__hero__cta", {
+                y: -140,
+            }, {
+                y: -70,
+                duration: 0.5,
+                delay: duration + 1.45,
+                opacity: 1,
+                ease: "elastic.out(1.5 , 0.5)",
+            })
+        }
 
 
 
