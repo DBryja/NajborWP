@@ -219,7 +219,8 @@ body:has(.home__hero, .ranAnim){
     display: flex;
     column-gap: 2rem;
     width: 100%;
-    transform: translateX(-130%);
+    transform: translate3d(-130%, 0, 0);
+    will-change: translate3d, skewX;
     span{
       display: block;
       width: fit-content;
@@ -391,8 +392,6 @@ body:has(.home__hero, .ranAnim){
     }
   }
 }
-//TODO: Anim hover on category
-//TODO: Anim cursor on category hover
 .section-heading{
   color: $red;
   font-size: 3rem;
