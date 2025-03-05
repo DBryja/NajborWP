@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ScrollTrigger.create({
         start: "top top",
         onUpdate: (self) => {
-            if (self.scroll().scrollY > 5) {
+            if (self.scroll() > 5) {
                 gsap.to(hideOnScroll, {duration: 0.1, y: -20, opacity: 0, pointerEvents: "none", ease: "none"});
             } else {
                 gsap.to(hideOnScroll, {duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: "none"});

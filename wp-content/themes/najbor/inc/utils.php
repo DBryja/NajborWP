@@ -113,10 +113,10 @@ function get_heading_template() {
 		get_template_part('template-parts/header', 'kontakt');
 	} elseif (is_page('na-sprzedaz') || is_page("dostepne")) {
 		get_template_part("template-parts/header", "dostepne");
-	} elseif (is_post_type_archive('prace')) {
-		get_template_part('template-parts/header', 'prace');
 	} elseif (is_tax('katprace')) {
-		get_template_part('template-parts/header', 'katprace');
+        get_template_part('template-parts/header', 'katprace');
+    } elseif (is_post_type_archive('prace')) {
+		get_template_part('template-parts/header', 'prace');
 	} elseif (is_singular("prace")){
 		get_template_part('template-parts/header', 'single-prace');
 	}
