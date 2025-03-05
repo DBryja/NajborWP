@@ -47,22 +47,20 @@ $szpiegPath: "../images/szpieg.png";
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: var(--logo-width);
   aspect-ratio: 1/1;
+  transform: translate3d(-48%, -50%, 0);
+  will-change: transform;
   &.exit {
     left: 32px;
     top: 32px;
     transform: translate(0, 0);
   }
-  @media (max-width: 1200px) {
-    --width: 50%;
-    transform: translate(-48%, -50%);
-  }
 }
 .anim {
   &__item {
-    @include absolute-center;
+    position: absolute;
+    will-change: translate3d;
     img {
       width: 100%;
     }
@@ -88,8 +86,13 @@ $szpiegPath: "../images/szpieg.png";
     aspect-ratio: 1/1;
     width: 100%;
     background-color: $white;
+
     @include szpieg;
     img {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
       aspect-ratio: 1/1;
       width: 100%;
       height: auto;
@@ -165,6 +168,7 @@ $szpiegPath: "../images/szpieg.png";
     border: none;
     background-color: transparent;
     margin: 0;
+    color: $black;
   }
 
   &__right{

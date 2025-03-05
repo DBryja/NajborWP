@@ -12,6 +12,7 @@ function runGSAP(){
     const logoSize = getComputedStyle(document.documentElement).getPropertyValue("--exit-width");
     const headerStyle = getComputedStyle(document.querySelector("header.header"));
     const paddings = [headerStyle.paddingTop, headerStyle.paddingRight, headerStyle.paddingBottom, headerStyle.paddingLeft];
+    const isIos = isIosDevice();
 
     gsap.registerPlugin(gsap.plugins.motionPath);
     const sizes = {width: window.innerWidth, height: window.innerHeight};
@@ -50,17 +51,15 @@ function runGSAP(){
         })
     }
     function exitAnim() {
-        const sizes = {width: window.innerWidth, height: window.innerHeight};
-
         gsap.to("#autobus", {
             duration: duration,
-            x: sizes.width * 1.3,
+            x: ()=> sizes.width * 1.3,
             ease: ease
         });
         gsap.to("#samolot", {
             duration: duration,
-            x: -sizes.width * 1.3,
-            y: -sizes.height,
+            x: ()=> -sizes.width * 1.3,
+            y: ()=> -sizes.height,
             ease: ease
         });
         gsap.to("#logo", {
@@ -167,32 +166,44 @@ function runGSAP(){
 
     function scrollTriggers(){
         gsap.registerPlugin(ScrollTrigger);
-        if(ScrollTrigger.isTouch === 1)
+        if(ScrollTrigger.isTouch === 1){
             ScrollTrigger.normalizeScroll(true);
+            ScrollTrigger.config({ ignoreMobileResize: true })
+        }
 
         let scrollTimeout;
-        gsap.to(".home__bio__decor", {
-            scrollTrigger: {
-                trigger: ".home__bio",
-                start: "top 80%",
-                end: "end " + (isMobile ? "100px" : "0%"),
-                scrub: 1,
-                // markers: true,
-                onUpdate: (self) => {
-                    const skewValue = self.getVelocity() / 150;
-                    gsap.to(".home__bio__decor", { skewX: -skewValue });
+        const triggerConfig = {
+            trigger: ".home__bio",
+            start: "top 80%",
+            end: "end " + (isMobile ? "100px" : "0%"),
+            scrub: 1,
+            // markers: true,
+        };
 
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        gsap.to(".home__bio__decor", { skewX: 0, ease: "elastic.out(1.5 , 1)" });
-                    }, 200);
-                },
-            },
-            x: "+="+window.innerWidth/(isMobile ? 1.6 : 4),
+        // Only add onUpdate for non-iOS devices
+        if (!isIos) {
+            triggerConfig.onUpdate = (self) => {
+                const skewValue = self.getVelocity() / 150;
+                gsap.to(".home__bio__decor", { skewX: -skewValue });
+
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    gsap.to(".home__bio__decor", { skewX: 0, ease: "elastic.out(1.5 , 1)" });
+                }, 200);
+            };
+        }
+
+        gsap.to(".home__bio__decor", {
+            scrollTrigger: triggerConfig,
+            x: ()=>"+="+window.innerWidth/(isMobile ? 1.6 : 4),
         });
     }
 
     setTimeout(enterAnim, 100);
     setTimeout(exitAnim, duration*1200);
     setTimeout(scrollTriggers, 100);
+}
+
+function isIosDevice() {
+    return /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 }
