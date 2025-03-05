@@ -26,7 +26,6 @@
             }
         });
     }
-
     document.querySelectorAll(`a:not([target="_blank"]):not([href^="#"])`).forEach(link => {
         link.addEventListener('click', (event) => {
             if(isTransitioning) return;
@@ -55,12 +54,12 @@
         }
         runTransitionAnimation();
     }
-    window.addEventListener('DOMContentLoaded', onPageLoad);
     window.addEventListener('pageshow', (event) => {
         if (event.persisted) { // Check if the page is loaded from cache
             onPageLoad();
         }
     });
+    window.addEventListener('DOMContentLoaded', onPageLoad);
 </script>
 
 <footer class="footer">

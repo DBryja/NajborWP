@@ -48,24 +48,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const hideOnScroll = document.querySelectorAll('.hideOnScroll');
-    let lastScroll = 0;
-    let currentScroll;
-
-    window.addEventListener('scroll', function() {
-    currentScroll = window.scrollY;
-
-    if (currentScroll > 5) {
-        // Scroll down animation
-         gsap.to(hideOnScroll, {duration: 0.1, y: -20, skewX,  opacity: 0, pointerEvents: "none", ease: "none"});
-    } else {
-        // Scroll up animation
-        gsap.to(hideOnScroll, {duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: "none"});
-    }
-
-    lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+    if (!hideOnScroll.length) return;
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+        start: "top top",
+        onUpdate: (self) => {
+            if (self.direction === 1) {
+                // Scroll down animation
+                gsap.to(hideOnScroll, {duration: 0.1, y: -20, opacity: 0, pointerEvents: "none", ease: "none"});
+            } else {
+                // Scroll up animation
+                gsap.to(hideOnScroll, {duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: "none"});
+            }
+        }
     });
 });
