@@ -36,7 +36,7 @@
             >
         </picture>
         <button class="home__hero__cta btn">
-            <a href="<?php echo WP_HOME."/prace/" ?>"><?php echo $cta ?></a>
+            <a href="<?php echo $home."/prace/" ?>"><?php echo $cta ?></a>
         </button>
     </div>
 </section>
@@ -67,7 +67,7 @@
         <?php
         foreach ($categories as $cat) {
             $desc = esc_attr($cat["desc_" . $lang]);
-            $url = esc_url($home . '/prace/' . $cat['slug']);
+            $url = esc_url($home.'/prace/' . $cat['slug']);
             $name = esc_html($cat["name_" . $lang]);
 
             echo '<a href="' . $url . '" class="home__categories__item">

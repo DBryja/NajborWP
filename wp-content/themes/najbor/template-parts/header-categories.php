@@ -1,4 +1,5 @@
 <?php
+global $wp;
 $lang = get_site_language();
 $categories = get_katprace_categories_with_translations();
 $all_label = ml_menuItems()["wszystkie"];
@@ -13,7 +14,8 @@ if ($current_category && isset($current_category->slug)) {
 }
 
 // Sprawdzenie, czy jesteśmy na STRONIE GŁÓWNEJ /prace/, ale NIE na podstronie kategorii
-$is_main_prace_page = is_post_type_archive('prace') || (is_page('prace') && !$current_category);
+$current_url = home_url($wp->request);
+$is_main_prace_page = preg_match('/\/prace(\/?|#.*)?$/', $current_url);
 ?>
 <div class="categories-list hideOnScroll">
 	<?php foreach($categories as $cat){

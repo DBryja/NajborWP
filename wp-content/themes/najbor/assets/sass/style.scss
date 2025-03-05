@@ -72,7 +72,7 @@ main{
     z-index: 1;
 }
 
-*:has([data-forSale]){
+div:has([data-forSale]), a:has([data-forSale]), article:has([data-forSale]){
     position: relative;
 }
 [data-forSale]::after{
