@@ -42,7 +42,10 @@
 </section>
 <section class="home__bio">
     <h3 class="home__bio__decor">
-        <?php echo "<span class='section-heading'>".$decor."</span><span class='section-heading'>".$decor."</span>" ?>
+        <?php
+        for ($i = 0; $i < 3; $i++)
+            echo "<span class='section-heading'>".$decor."</span>";
+        ?>
     </h3>
     <div class="home__bio__image">
         <picture>
