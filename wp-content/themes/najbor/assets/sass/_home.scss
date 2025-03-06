@@ -219,11 +219,17 @@ body:has(.home__hero, .ranAnim){
     display: flex;
     column-gap: 2rem;
     width: 100%;
-    transform: translate3d(-130%, 0, 0);
-    will-change: translate3d, skewX;
     span{
       display: block;
       width: fit-content;
+    }
+    transform: translate3d(-130%, 0, 0);
+    will-change: translate3d, skewX;
+    animation: none;
+    &.isIos{
+      will-change: translate;
+      transform: translateX(-200%);
+      animation: slideRow linear 30s infinite;
     }
   }
   &__image{
@@ -287,6 +293,14 @@ body:has(.home__hero, .ranAnim){
     &__content p{
       font-size: 1.5rem;
     }
+  }
+}
+@keyframes slideRow {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 

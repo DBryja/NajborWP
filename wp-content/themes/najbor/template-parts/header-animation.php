@@ -1,10 +1,11 @@
 <?php $template_directory_uri = get_template_directory_uri(); ?>
 
 <div id="anim-wrapper" class="anim-wrapper anim">
+    <link rel="preload" as="image" href="<?php echo $template_directory_uri; ?>/assets/images/logo.webp">
     <div id="logo" class="logo anim__item">
         <picture>
             <source srcset="<?php echo $template_directory_uri; ?>/assets/images/logo.webp" type="image/webp">
-            <img src="<?php echo $template_directory_uri; ?>/assets/images/logo.png" alt="">
+            <img src="<?php echo $template_directory_uri; ?>/assets/images/logo.png" alt="" >
         </picture>
     </div>
     <div id="autobus" class="autobus anim__item">

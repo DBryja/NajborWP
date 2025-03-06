@@ -3,6 +3,7 @@
     $lang = get_site_language();
     $description = ml_meta_description();
     $title = ml_meta_title();
+    $template_directory_uri = get_template_directory_uri();
 ?>
 <html lang="<?php echo $lang ?>">
 <head>
@@ -39,7 +40,12 @@
 ?>
 <header class="header">
     <div class="logo">
-        <a href="<?php echo $home?>"><img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt="logo"></a>
+        <a href="<?php echo $home?>" aria-label="<?php echo $labels["home"][$lang]?>">
+            <picture>
+                <source srcset="<?php echo $template_directory_uri; ?>/assets/images/logo-150x150.webp" type="image/webp">
+                <img src="<?php echo $template_directory_uri; ?>/assets/images/logo-150x150.png" alt="">
+            </picture>
+        </a>
     </div>
     <h3>
         <?php get_heading_template(); ?>

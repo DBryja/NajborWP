@@ -165,6 +165,13 @@ function runGSAP(){
     }
 
     function scrollTriggers(){
+        if(isIos) {
+            document.querySelector(".home__bio__decor").classList.add("isIos");
+            return;
+        } else {
+            document.querySelector(".home__bio__decor").classList.remove("isIos");
+        }
+
         gsap.registerPlugin(ScrollTrigger);
         if(ScrollTrigger.isTouch === 1){
             ScrollTrigger.normalizeScroll(true);
@@ -172,29 +179,23 @@ function runGSAP(){
         }
 
         let scrollTimeout;
-        const triggerConfig = {
-            trigger: ".home__bio",
-            start: "top 80%",
-            end: "end " + (isMobile ? "100px" : "0%"),
-            scrub: 1,
-            // markers: true,
-        };
-
-        // Only add onUpdate for non-iOS devices
-        if (!isIos) {
-            triggerConfig.onUpdate = (self) => {
-                const skewValue = self.getVelocity() / 150;
-                gsap.to(".home__bio__decor", { skewX: -skewValue });
-
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    gsap.to(".home__bio__decor", { skewX: 0, ease: "elastic.out(1.5 , 1)" });
-                }, 200);
-            };
-        }
-
         gsap.to(".home__bio__decor", {
-            scrollTrigger: triggerConfig,
+            scrollTrigger: {
+                trigger: ".home__bio",
+                start: "top 80%",
+                end: "end " + (isMobile ? "100px" : "0%"),
+                scrub: 1,
+                // markers: true,
+                onUpdate: (self) => {
+                    const skewValue = self.getVelocity() / 150;
+                    gsap.to(".home__bio__decor", { skewX: -skewValue });
+
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        gsap.to(".home__bio__decor", { skewX: 0, ease: "elastic.out(1.5 , 1)" });
+                    }, 200);
+                }
+            },
             x: ()=>"+="+window.innerWidth/(isMobile ? 1.6 : 4),
         });
     }
