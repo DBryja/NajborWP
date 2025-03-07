@@ -70,5 +70,3 @@ add_action('pre_get_posts', 'custom_sort_posts_by_priority');
 // <<< ADMIN PANEL
 // ADMIN PANEL >>>
 ?>
-
-
