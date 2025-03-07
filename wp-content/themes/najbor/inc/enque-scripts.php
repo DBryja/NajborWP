@@ -25,7 +25,7 @@ function najbor_register_scripts(){
 	}
 
 	wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/main.js', array(), null, true);
-	wp_enqueue_script('cursor-js', get_template_directory_uri() . '/assets/js/cursor.js', array("gsap", "gsap-motion-path"), null, true);
+	wp_enqueue_script('cursor-js', get_template_directory_uri() . '/assets/js/cursor.js', array("gsap"), null, true);
 }
 add_action("wp_enqueue_scripts", "najbor_register_scripts", 1);
 ?>

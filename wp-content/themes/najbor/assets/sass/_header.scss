@@ -169,9 +169,13 @@ $szpiegPath: "../images/szpieg.png";
     margin: 0;
     color: $black;
     transition: color 0.2s ease, letter-spacing 0.2s cubic-bezier(.22,.68,0,1.71);
+    width: 78px;
     &:hover{
       color: $red;
       letter-spacing: 2px;
+    }
+    @include breakpoint(lg){
+      width: 100px;
     }
   }
 
