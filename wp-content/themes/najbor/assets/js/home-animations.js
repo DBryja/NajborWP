@@ -183,7 +183,8 @@ function runGSAP(){
         gsap.from(".home__categories__item", {
             scrollTrigger: {
                 trigger: ".home__categories",
-                start: "top 70%",
+                start: "top 60%",
+                end: "+=100"
                 // markers: true,
             },
             x: (index) => index % 2 === 0 ? 50 : -50,
