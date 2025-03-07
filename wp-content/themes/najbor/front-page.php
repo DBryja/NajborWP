@@ -26,6 +26,8 @@
     </h2>
     <div class="home__hero__image">
         <picture>
+            <source srcset="<?php echo get_template_directory_uri().'/assets/images/hp-lg.webp'?>" media="(min-width: 1200px)" type="image/webp">
+            <source srcset="<?php echo get_template_directory_uri().'/assets/images/hp-md.webp'?>" media="(min-width: 768px)" type="image/webp">
             <source srcset="<?php echo get_template_directory_uri().'/assets/images/hp-lg.jpg'?>" media="(min-width: 1200px)">
             <source srcset="<?php echo get_template_directory_uri().'/assets/images/hp-md.jpg'?>" media="(min-width: 768px)">
             <img
@@ -49,7 +51,8 @@
     </h3>
     <div class="home__bio__image">
         <picture>
-            <img src="<?php echo get_template_directory_uri().'/assets/images/portret.jpg'?>" alt="Autoportret pt. Tańczący z Farbami">
+            <source srcset="<?php echo get_template_directory_uri().'/assets/images/portret.webp'?>" type="image/webp">
+            <img loading="lazy" fetchpriority="high" src="<?php echo get_template_directory_uri().'/assets/images/portret.jpg'?>" alt="Autoportret pt. Tańczący z Farbami">
         </picture>
     </div>
     <div class="home__bio__content">

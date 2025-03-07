@@ -40,10 +40,10 @@ $alerts = ml_alerts();
         <div class="form-field form-field__row">
             <div class="links" role="group" aria-label="Social Links">
                 <a href="https://www.facebook.com/profile.php?id=100063761825254" aria-label="Facebook">
-                    <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/></svg>
                 </a>
                 <a href="mailto: wiktornajbor@gmail.com" aria-label="e-mail">
-                    <i class="fa-solid fa-envelope"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
                 </a>
             </div>
             <button type="submit" class="form-field__submit cursor--click" aria-label="Submit form">
@@ -92,7 +92,7 @@ $alerts = ml_alerts();
         })
             .then(response => response.json())
             .then(data => {
-                const formResponse = document.getElementById('formResponse');
+                // const formResponse = document.getElementById('formResponse');
                 if(data.success) {
                     form.reset();
                     document.getElementById("page-title").value = document.title;

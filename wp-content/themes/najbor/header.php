@@ -3,6 +3,7 @@
     $lang = get_site_language();
     $description = ml_meta_description();
     $title = ml_meta_title();
+    $template_directory_uri = get_template_directory_uri();
 ?>
 <html lang="<?php echo $lang ?>">
 <head>
@@ -39,7 +40,12 @@
 ?>
 <header class="header">
     <div class="logo">
-        <a href="<?php echo $home?>"><img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt="logo"></a>
+        <a href="<?php echo $home?>" aria-label="<?php echo $labels["home"][$lang]?>">
+            <picture>
+                <source srcset="<?php echo $template_directory_uri; ?>/assets/images/logo-150x150.webp" type="image/webp">
+                <img src="<?php echo $template_directory_uri; ?>/assets/images/logo-150x150.png" alt="">
+            </picture>
+        </a>
     </div>
     <h3>
         <?php get_heading_template(); ?>
@@ -52,7 +58,7 @@
     ?>
 
     <div class="header__right">
-        <button class="header__menu cursor--click h4 anim" tabindex="0">
+        <button class="header__menu cursor--click h4 anim" tabindex="1">
                 menu
         </button>
         <?php
@@ -119,6 +125,13 @@
     const ease = 'circ';
     const duration = 0.1;
 
+    function setTabIndex(value) {
+        mainMenuItems.forEach(item => {
+            const a = item.querySelector('a');
+            if(a) a.setAttribute('tabindex', value);
+            else item.setAttribute('tabindex', value);
+        });
+    }
     function menuItemsEnter({reverse}={reverse: false}) {
         reverse = reverse ? -1 : 1;
         return new Promise((resolve) => {
@@ -153,16 +166,22 @@
         menuContainer.classList.toggle('active');
         menuContainer.classList.toggle("inactive");
 
-        if(menuContainer.classList.contains("active"))
+        if(menuContainer.classList.contains("active")){
+            setTabIndex('0');
             menuContainer.appendChild(cursor);
-        else
+        }
+        else{
+            setTabIndex('-1');
             document.body.appendChild(cursor);
+        }
     }
     function toggleMenuOptions(){
         mainMenu.classList.toggle('hidden');
         subMenu.classList.toggle('hidden');
     }
 
+    if (menuContainer.classList.contains('inactive'))
+        setTabIndex('-1');
     // Handling the "prace" li item to enter nested menu
     prace.addEventListener('click',async () => {
         menuItemsLeave({reverse:true}).then(()=>{

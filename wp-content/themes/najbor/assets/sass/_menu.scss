@@ -15,12 +15,18 @@
   transition: opacity 0.4s ease-in-out;
   pointer-events: none;
   z-index: $z-menu;
-  background-image: url('../images/menu-bg-sm.png');
-  @include breakpoint(md){
-    background-image: url('../images/menu-bg-md.png');
+  background-image: image-set(
+                  url('../images/menu-bg-sm.webp') type('image/webp'),
+                  url('../images/menu-bg-sm.png') type('image/png'));
+  @include breakpoint(md) {
+    background-image: image-set(
+                    url('../images/menu-bg-md.webp') type('image/webp'),
+                    url('../images/menu-bg-md.png') type('image/png'));
   }
-  @include breakpoint(xl){
-    background-image: url('../images/menu-bg-lg.png');
+  @include breakpoint(xl) {
+    background-image: image-set(
+                    url('../images/menu-bg-lg.webp') type('image/webp'),
+                    url('../images/menu-bg-lg.png') type('image/png'));
   }
   background-size: cover;
   background-repeat: no-repeat;
