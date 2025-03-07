@@ -167,6 +167,7 @@ function runGSAP(){
     function scrollTriggers(){
         if(isIos) {
             document.querySelector(".home__bio__decor").classList.add("isIos");
+            iosScrollAnim();
             return;
         } else {
             document.querySelector(".home__bio__decor").classList.remove("isIos");
@@ -178,6 +179,20 @@ function runGSAP(){
             ScrollTrigger.config({ ignoreMobileResize: true })
         }
 
+        // Categories animation
+        gsap.from(".home__categories__item", {
+            scrollTrigger: {
+                trigger: ".home__categories",
+                start: "top 70%",
+                // markers: true,
+            },
+            x: (index) => index % 2 === 0 ? 50 : -50,
+            // y: 15,
+            opacity: 0,
+            stagger: 0.15,
+        });
+
+        // Bio decor
         let scrollTimeout;
         gsap.to(".home__bio__decor", {
             scrollTrigger: {
@@ -205,6 +220,31 @@ function runGSAP(){
     setTimeout(scrollTriggers, 100);
 }
 
+function iosScrollAnim() {
+    const trigger = document.querySelector(".home__categories");
+    const startOffset = window.innerHeight - 80;
+
+    window.addEventListener("scroll", scrollListen);
+
+    // Set initial values
+    gsap.set(".home__categories__item", {
+        x: (index) => index % 2 === 0 ? 50 : -50,
+        opacity: 0,
+    });
+    function scrollListen() {
+        const triggerRect = trigger.getBoundingClientRect();
+        if (triggerRect.top <= startOffset) {
+            window.removeEventListener("scroll", scrollListen);
+            window.removeEventListener("scroll", iosScrollAnim);
+
+            gsap.to(".home__categories__item", {
+                x: 0,
+                opacity: 1,
+                stagger: 0.15,
+            });
+        }
+    }
+}
 function isIosDevice() {
     return /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 }
