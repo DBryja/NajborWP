@@ -217,5 +217,3 @@ function ml_home_series(){
 
 
 ?>
-
-<!---->
