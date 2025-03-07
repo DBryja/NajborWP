@@ -21,7 +21,9 @@ $halfBlack: transparentize($black, 0.5);
     display: none;
     height: 100%;
     width: 100%;
-    background-image: url("../images/kontakt2.jpg");
+    background-image: image-set(
+                    url('../images/kontakt2.webp') type('image/webp'),
+                    url('../images/kontakt2.jpg') type('image/jpg'));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -134,6 +136,7 @@ body:has(#contact-page){
       height: 70px;
       background-color: var(--arrow-color);
       transform: rotate(-45deg) translate(24px, 8px);
+      transform-origin: left;
       transition: transform 0.3s;
     }
 
@@ -151,22 +154,17 @@ body:has(#contact-page){
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-
     .links{
         display: flex;
         gap: 1rem;
-      a{
-        transition: color 0.2s ease;
-      }
-      &:has(a:hover){
-        a:not(:hover){
-          opacity: 0.6;
-        }
-      }
+      a svg{
+        width: 2rem;
+        height: 2rem;
+        fill: $black;
+        transition: fill 0.2s ease-in-out;
+        &:hover{
 
-      i{
-        font-size: 2rem;
+        }
       }
     }
   }
