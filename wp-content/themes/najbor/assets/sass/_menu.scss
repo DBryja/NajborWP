@@ -43,6 +43,14 @@
     display: none;
   }
 
+  &__item{
+    transition: color 0.2s ease, letter-spacing 0.2s cubic-bezier(.22,.68,0,1.71);
+    &:hover{
+      color: $red;
+      letter-spacing: 2px;
+    }
+  }
+
   &__list{
     display: flex;
     flex-direction: column;
