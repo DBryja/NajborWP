@@ -24,7 +24,12 @@ body:has(.home__hero){
     opacity: 0;
   }
 }
-body:has(.home__hero, .ranAnim){
+body:has(.home__hero){
+  section{
+    opacity: 0;
+  }
+}
+body:not(:has(.anim-wrapper)){
   section{
     opacity: 1;
   }

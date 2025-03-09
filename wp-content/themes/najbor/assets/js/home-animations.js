@@ -17,6 +17,7 @@ function runGSAP(){
     gsap.registerPlugin(gsap.plugins.motionPath);
     const sizes = {width: window.innerWidth, height: window.innerHeight};
     const isMobile = sizes.width < 1024;
+    const isTablet = sizes.width < 1024 && sizes.width >= 600;
     const duration = 1.6;
     const ease = "elastic.inOut(1, 0.75)";
 
@@ -29,18 +30,17 @@ function runGSAP(){
     gsap.set([".home__hero__title span", ".home__hero__desc span", ".home__hero__image", ".home__bio"], {
         opacity: 0,
     })
-
     function enterAnim() {
         scrollToTop();
         gsap.to("#autobus", {
             duration: duration,
-            x: isMobile ? -100 : -350,
+            x: ()=> isMobile ? (isTablet ? -200 : -100) : -0.18 * sizes.width,
             ease: ease
         });
         gsap.to("#samolot", {
             duration: duration,
-            x: isMobile ? -70 : -150,
-            y: isMobile ? -100 : -250,
+            x: ()=> isMobile ? (isTablet ? -130 : -70) : -0.125 * sizes.width,
+            y: () => isMobile ? (isTablet ? -175 : -100) : -0.25 * sizes.height,
             ease: ease
         });
         gsap.from("#logo", {
@@ -58,8 +58,8 @@ function runGSAP(){
         });
         gsap.to("#samolot", {
             duration: duration,
-            x: ()=> -sizes.width * 1.3,
-            y: ()=> -sizes.height,
+            x: ()=> -sizes.width * (isMobile ? 1.6 : 1.3),
+            y: ()=> -sizes.height * 0.6,
             ease: ease
         });
         gsap.to("#logo", {

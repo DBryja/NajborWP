@@ -33,9 +33,11 @@ $szpiegPath: "../images/szpieg.png";
   --logo-width: 50%;
   @include breakpoint(md){
     --exit-width: 92px;
+    --logo-width: 40%;
   }
   @include breakpoint(lg){
     --exit-width: 96px;
+    --logo-width: 35%;
   }
   @include breakpoint(xl){
     --exit-width: 96px;
@@ -77,7 +79,7 @@ $szpiegPath: "../images/szpieg.png";
     left: 90%;
     rotate: 35deg;
     transform: translate(calc(-50% + 100vw), calc(-50% + 20vh));
-    @include breakpoint(md){
+    @include breakpoint(lg){
       transform: translate(calc(-50% + 100vw), calc(-50% + 50vh));
     }
   }
@@ -145,7 +147,7 @@ $szpiegPath: "../images/szpieg.png";
   h3{
     display: inline-block;
     font-size: 2rem;
-    margin-left: 6px;
+    margin-left: 14px;
     @include breakpoint(sm) {
       margin-left: 0;
       font-size: 3rem;
@@ -169,7 +171,8 @@ $szpiegPath: "../images/szpieg.png";
     margin: 0;
     color: $black;
     transition: color 0.2s ease, letter-spacing 0.2s cubic-bezier(.22,.68,0,1.71);
-    width: 78px;
+    width: 70px;
+    padding: 0;
     &:hover{
       color: $red;
       letter-spacing: 2px;
