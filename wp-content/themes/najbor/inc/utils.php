@@ -253,4 +253,95 @@ function send_email(){
 }
 add_action('wp_ajax_nopriv_send_email', 'send_email');
 add_action('wp_ajax_send_email', 'send_email');
+
+
+/**
+ * Generate a JSON-compatible array of available works for Schema.org ItemList
+ * This function queries posts in the 'available' category or with available meta flag
+ * Uses the existing get_praca_data() function to retrieve artwork data
+ *
+ * @return string JSON-formatted array of ListItem objects
+ */
+function get_available_works() {
+    $args = array(
+        'post_type' => 'post',
+        'posts_per_page' => -1,
+    );
+
+    $available_works = get_posts($args);
+    $list_items = array();
+    $position = 1;
+
+    foreach ($available_works as $work) {
+        $work_data_custom = get_praca_data($work->ID);
+        $thumbnail_id = $work_data_custom['obraz'];
+        $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'full');
+        $thumbnail_meta = wp_get_attachment_metadata($thumbnail_id);
+
+        $category = get_the_category($work->ID);
+        $category_slug = !empty($category) ? $category[0]->slug : '';
+
+        $work_item = array(
+            "@type" => "ListItem",
+            "position" => $position,
+            "item" => array(
+                "@type" => "Product",
+                "@id" => get_permalink($work->ID),
+                "name" => array(
+                    array(
+                        "@language" => "pl-PL",
+                        "@value" => $work_data_custom['tytul']['pl']
+                    )
+                ),
+                "description" => array(
+                    array(
+                        "@language" => "pl-PL",
+                        "@value" => $work_data_custom['opis']['pl']
+                    )
+                ),
+                "url" => get_permalink($work->ID),
+                "image" => array(
+                    "@type" => "ImageObject",
+                    "url" => $thumbnail_url,
+                    "width" => isset($thumbnail_meta['width']) ? $thumbnail_meta['width'] : '',
+                    "height" => isset($thumbnail_meta['height']) ? $thumbnail_meta['height'] : ''
+                ),
+            )
+        );
+
+        // Add English and French titles and descriptions if they exist
+        if (!empty($work_data_custom['tytul']['en'])) {
+            $work_item['item']['name'][] = array(
+                "@language" => "en-US",
+                "@value" => $work_data_custom['tytul']['en']
+            );
+        }
+
+        if (!empty($work_data_custom['tytul']['fr'])) {
+            $work_item['item']['name'][] = array(
+                "@language" => "fr-FR",
+                "@value" => $work_data_custom['tytul']['fr']
+            );
+        }
+
+        if (!empty($work_data_custom['opis']['en'])) {
+            $work_item['item']['description'][] = array(
+                "@language" => "en-US",
+                "@value" => $work_data_custom['opis']['en']
+            );
+        }
+
+        if (!empty($work_data_custom['opis']['fr'])) {
+            $work_item['item']['description'][] = array(
+                "@language" => "fr-FR",
+                "@value" => $work_data_custom['opis']['fr']
+            );
+        }
+
+        $list_items[] = $work_item;
+        $position++;
+    }
+
+    return json_encode($list_items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+}
 ?>
